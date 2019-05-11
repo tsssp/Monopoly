@@ -12,6 +12,7 @@ public class Main {
 	static {
 		// …Ë÷√—˘ Ω
 		try {
+			///UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Exception e1) {
 			

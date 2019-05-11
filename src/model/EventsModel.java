@@ -18,7 +18,7 @@ import control.Control;
  * @author MOVELIGHTS
  * 
  */
-public class EventsModel extends Tick implements Port {
+public class  EventsModel extends Tick implements Port {
 
 	/**
 	 * ��ʾͼƬԴ

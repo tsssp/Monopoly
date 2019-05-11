@@ -41,9 +41,9 @@ public class Photo {
 	 * 可选人物图片
 	 * */
 	public static ImageIcon[] PLAYER_CHOOSE = {
-		new ImageIcon("images/player/0/head_h5.png"),
-		new ImageIcon("images/player/1/head_h5.png"),
-		new ImageIcon("images/player/2/head_h5.png"),
-		new ImageIcon("images/player/3/head_h5.png")
+		new ImageIcon("images/player/0/0new.png"),///使用logo
+		new ImageIcon("images/player/1/1new.png"),
+		new ImageIcon("images/player/2/2new.png"),
+		new ImageIcon("images/player/3/3new.png")
 	};
 }
