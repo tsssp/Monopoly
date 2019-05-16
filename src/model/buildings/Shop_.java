@@ -45,7 +45,7 @@ public class Shop_ extends Building {
 
 	public Shop_(int posX, int posY) {
 		super(posX, posY);
-		this.name = "商店";
+		this.name = "物美超市";
 	}
 
 	@Override

@@ -17,15 +17,14 @@ import control.Control;
 public class Hospital extends Building {
 	
 	private String[] events = {
-			"在医院检查出流感。",
-			"碰上神经病患者，上前一起研究病情。",
-			"在医院门口遇上打劫，被群殴，需要住院观察。",
-			"在医院看望住院好友。"
+			"遭遇流感，在校医院接受治疗，",
+			"在校医院接种HPV疫苗，",
+			"在校医院看望住院好友，"
 	};
 	
 	public Hospital(int posX, int posY) {
 		super(posX, posY);
-		this.name = "医院";
+		this.name = "校医院";
 	}
 	public String[] getEvents() {
 		return events;

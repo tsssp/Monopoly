@@ -54,10 +54,10 @@ public class PlayerModel extends Tick implements Port {
 	private int inHospital;
 	/**
 	 * 
-	 * 剩余监狱天数
+	 * 剩余保卫部天数
 	 * 
 	 */
-	private int inPrison;
+	private int inSecurityDepartment;
 
 	/**
 	 * 
@@ -131,12 +131,12 @@ public class PlayerModel extends Tick implements Port {
 		return buildings;
 	}
 
-	public int getInPrison() {
-		return inPrison;
+	public int getInSecurityDepartment() {
+		return inSecurityDepartment;
 	}
 
-	public void setInPrison(int inPrison) {
-		this.inPrison = inPrison;
+	public void setInSecurityDepartment(int inSecurityDepartment) {
+		this.inSecurityDepartment = inSecurityDepartment;
 	}
 
 	/**
