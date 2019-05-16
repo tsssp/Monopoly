@@ -89,8 +89,10 @@ public class JPanelGame extends JPanel{
 		// 创建玩家显示UI
 		this.playersUI = new Players(posX, posY, 950, 650,control.getRunning(), control.getPlayers());
 		// 玩家信息面板UI
-		this.layerPlayersPanel = new PlayersPanel(posX + 64, posY + 66, 170,
-				250, control.getPlayers());
+		//this.layerPlayersPanel = new PlayersPanel(posX + 64, posY + 66, 170,
+		//		250, control.getPlayers());
+		this.layerPlayersPanel = new PlayersPanel(0, 0, 700,
+				80, control.getPlayers());
 		// 文字显示面板UI
 		this.textTip = new TextTip(0,0,950,650,control.getTextTip());
 		// 骰子事件UI
