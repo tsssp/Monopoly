@@ -106,6 +106,7 @@ public class FrameConfig extends JFrame {
 		this.jFrameGame = jFrameGame;
 		setTitle("欢迎来到PKU版大富翁");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBackground(Color.WHITE);
 		// 设置布局管理器为边界布局
 		this.setLayout(new BorderLayout());
 		// 添加主面板
@@ -117,6 +118,7 @@ public class FrameConfig extends JFrame {
 		// 居中对齐
 		FrameUtil.setFrameCenter(this);
 		setVisible(true);
+
 	}
 
 	/**

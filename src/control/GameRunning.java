@@ -85,14 +85,14 @@ public class GameRunning {
 	 * 游戏金钱上线（即胜利条件）-1为无上限
 	 * 
 	 */
-	public static int MONEY_MAX = -1;
+	public static int MONEY_MAX = 80000;
 
 	/**
 	 * 
 	 * 初始化玩家初始金钱
 	 * 
 	 */
-	public static int PLAYER_CASH = 1000;
+	public static int PLAYER_CASH = 20000;
 
 	private Control control;
 

@@ -1,6 +1,6 @@
 package ui;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +13,7 @@ public class WaitFrame extends JFrame {
 		// 设置名字
 		this.setTitle("PKU版大富翁");
 		// 设置默认关闭属性（程序结束）
+		//this.setBackground(Color.WHITE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// 设置窗口大小
 		this.setSize(460, 400);
@@ -20,8 +21,12 @@ public class WaitFrame extends JFrame {
 		this.setResizable(false);
 		// 居中
 		FrameUtil.setFrameCenter(this);
-		add(new JLabel("正在努力加载，稍等哦...",JLabel.CENTER));
+		JLabel lb=new JLabel("正在努力加载，稍等哦...",JLabel.CENTER);
+		add(lb);
+		//add(new JLabel("正在努力加载，稍等哦...",JLabel.CENTER));
 		setVisible(true);
+		//lb.setBackground(Color.WHITE);
+		//lb.setOpaque(true);
 	}
 
 }
