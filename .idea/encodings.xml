@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/context/GameState.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/control/Control.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/control/GameRunning.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/Main.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/ui/JPanelGame.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/ui/Layer.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/ui/PlayerInfo.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/ui/PlayerInfoButton.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/ui/Players.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/ui/PlayersPanel.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/ui/WaitFrame.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/ui/config/FrameConfig.java" charset="GBK" />
   </component>
 </project>

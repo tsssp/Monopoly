@@ -2,73 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="737c3f8a-7aca-41b3-abc5-06e4196c5347" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RichManGameMVC.iml" beforeDir="false" afterPath="$PROJECT_DIR$/RichManGameMVC.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/context/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/context/GameState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/control/Control$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/control/Control$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/control/Control.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/control/Control.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/control/GameRunning.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/control/GameRunning.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/BackgroundModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/BackgroundModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/BuildingsModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/BuildingsModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/DiceModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/DiceModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/EffectModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/EffectModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/EventsModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/EventsModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/LandModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/LandModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/PlayerModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/PlayerModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/Port.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Port.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/TextTipModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/TextTipModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/Tick.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Tick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/Building.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/Hospital.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/Hospital.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/House.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/House.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/Lottery.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/Lottery.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/News.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/News.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/Origin.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/Origin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/Park.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/Park.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/Point.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/Prison.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/Prison.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/buildings/Shop_.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/buildings/Shop_.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/AddLevelCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/AddLevelCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/AveragerPoorCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/AveragerPoorCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/Card.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/ChangeCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/ChangeCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/ControlDiceCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/ControlDiceCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/CrossingCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/CrossingCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/HaveCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/HaveCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/ReduceLevelCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/ReduceLevelCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/RobCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/RobCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/StopCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/StopCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/TallageCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/TallageCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/TortoiseCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/TortoiseCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/model/card/TrapCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/card/TrapCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/music/Music.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/music/Music.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Background.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Background.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Buildings.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Buildings.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Dice.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Dice.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/DiceButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/DiceButton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Effect.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Effect.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Event.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/GameShop.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/GameShop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/JFrameGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/JFrameGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/JPanelGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/JPanelGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Lands.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Lands.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Layer.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Layer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/PlayerInfo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/PlayerInfo$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/PlayerInfo$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/PlayerInfo$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/PlayerInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/PlayerInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/PlayerInfoButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/PlayerInfoButton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Players.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Players.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/PlayersPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/PlayersPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Running.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Running.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Shop$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Shop$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Shop$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Shop$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/Shop.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/Shop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/ShopButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/ShopButton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/TextTip.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/TextTip.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/WaitFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/WaitFrame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$10.class" afterDir="false" />
@@ -76,7 +12,6 @@
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$12.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$13.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$15.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$4.class" afterDir="false" />
@@ -86,22 +21,9 @@
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$8.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$9.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/config/Photo.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/Photo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/massage/Massage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/massage/Massage$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/massage/Massage$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/massage/Massage$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/massage/Massage.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/massage/Massage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/massage/MassageButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/massage/MassageButton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/massage/MassageOk.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/massage/MassageOk.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/massage/MassageSimple.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/massage/MassageSimple.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ui/massage/MassageYesNo.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/massage/MassageYesNo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/util/FileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/util/FileUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/util/FrameUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/util/FrameUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/util/MyThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/util/MyThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/EventsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/EventsModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/GameRunning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/GameRunning.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/WaitFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/WaitFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/config/FrameConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/config/FrameConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/config/Photo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/config/Photo.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -112,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ui/config/FrameConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="47" column="34" lean-forward="true" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
+            <state relative-caret-position="-957">
+              <caret line="100" column="9" lean-forward="true" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -124,30 +46,127 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RichManGameMVC.iml">
-          <provider selected="true" editor-type-id="text-editor" />
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/control/GameRunning.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="351">
+              <caret line="96" column="28" lean-forward="true" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
+              <folding>
+                <element signature="e#1302#1303#0" expanded="true" />
+                <element signature="e#1335#1336#0" expanded="true" />
+                <element signature="e#2132#2133#0" expanded="true" />
+                <element signature="e#2160#2161#0" expanded="true" />
+                <element signature="e#2214#2215#0" expanded="true" />
+                <element signature="e#2257#2258#0" expanded="true" />
+                <element signature="e#3612#3613#0" expanded="true" />
+                <element signature="e#3641#3642#0" expanded="true" />
+                <element signature="e#3667#3668#0" expanded="true" />
+                <element signature="e#3686#3687#0" expanded="true" />
+                <element signature="e#3722#3723#0" expanded="true" />
+                <element signature="e#3747#3748#0" expanded="true" />
+                <element signature="e#3771#3772#0" expanded="true" />
+                <element signature="e#3788#3789#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ui/WaitFrame.java">
+        <entry file="file://$PROJECT_DIR$/src/ui/Layer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+            <state relative-caret-position="-254">
+              <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/context/GameState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-421">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/control/Control.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-6574">
+              <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/JPanelGame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-283">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/PlayerInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-775">
+              <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/Players.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-349">
+              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/PlayerInfoButton.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-634">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/PlayersPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="534">
+              <caret line="91" column="50" selection-start-line="91" selection-start-column="50" selection-end-line="91" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>MAP</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/ui/config/FrameConfig.java" />
+        <option value="$PROJECT_DIR$/src/ui/WaitFrame.java" />
+        <option value="$PROJECT_DIR$/src/control/GameRunning.java" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="60" />
-    <option name="y" value="39" />
+    <option name="y" value="23" />
     <option name="width" value="1400" />
-    <option name="height" value="837" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -156,7 +175,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -168,63 +186,6 @@
               <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
               <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
               <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="building" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-              <item name="playerChoose" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-              <item name="右按钮" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="massage" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="other" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="player" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="player" type="462c0819:PsiDirectoryNode" />
-              <item name="0" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="window" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
@@ -272,12 +233,14 @@
               <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
               <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="massage" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -288,7 +251,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -337,10 +300,10 @@
     <option name="totallyTimeSpent" value="10000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="60" y="39" width="1400" height="837" extended-state="0" />
+    <frame x="0" y="23" width="1400" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3041237" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32179675" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -350,7 +313,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32885906" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31082803" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -360,7 +323,7 @@
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32885906" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32866243" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -376,32 +339,118 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+    <entry file="file://$PROJECT_DIR$/RichManGameMVC.eml" />
+    <entry file="file://$PROJECT_DIR$/Monopoly.userlibraries" />
+    <entry file="file://$PROJECT_DIR$/RichManGameMVC.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="165">
+          <caret line="11" column="8" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RichManGameMVC.eml" />
-    <entry file="file://$PROJECT_DIR$/Monopoly.userlibraries" />
-    <entry file="file://$PROJECT_DIR$/src/ui/config/FrameConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="47" column="34" lean-forward="true" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
+        <state relative-caret-position="300">
+          <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/WaitFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RichManGameMVC.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/WaitFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/ui/PlayersPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        <state relative-caret-position="534">
+          <caret line="91" column="50" selection-start-line="91" selection-start-column="50" selection-end-line="91" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/JPanelGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-283">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/PlayerInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-775">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/Players.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-349">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/PlayerInfoButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-634">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/config/FrameConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-957">
+          <caret line="100" column="9" lean-forward="true" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/Layer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-254">
+          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/context/GameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-421">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/control/Control.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6574">
+          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/control/GameRunning.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="96" column="28" lean-forward="true" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
+          <folding>
+            <element signature="e#1302#1303#0" expanded="true" />
+            <element signature="e#1335#1336#0" expanded="true" />
+            <element signature="e#2132#2133#0" expanded="true" />
+            <element signature="e#2160#2161#0" expanded="true" />
+            <element signature="e#2214#2215#0" expanded="true" />
+            <element signature="e#2257#2258#0" expanded="true" />
+            <element signature="e#3612#3613#0" expanded="true" />
+            <element signature="e#3641#3642#0" expanded="true" />
+            <element signature="e#3667#3668#0" expanded="true" />
+            <element signature="e#3686#3687#0" expanded="true" />
+            <element signature="e#3722#3723#0" expanded="true" />
+            <element signature="e#3747#3748#0" expanded="true" />
+            <element signature="e#3771#3772#0" expanded="true" />
+            <element signature="e#3788#3789#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -422,6 +471,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
+          <last-edited>No facets are configured</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
