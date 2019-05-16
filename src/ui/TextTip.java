@@ -26,7 +26,7 @@ import model.TextTipModel;
  * 
  * 信息提示框
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class TextTip extends Layer {

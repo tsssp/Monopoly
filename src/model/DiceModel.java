@@ -20,7 +20,7 @@ import util.FileUtil;
  * В╩вс
  * 
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class DiceModel extends Tick implements Port {

@@ -14,7 +14,7 @@ import control.Control;
  * 监狱 玩家到这里可以入狱或者发生其他事件
  * 
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Prison extends Building {

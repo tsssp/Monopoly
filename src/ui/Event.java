@@ -8,7 +8,7 @@ import model.EventsModel;
 /**
  * ÊÂ¼şÏÔÊ¾UI
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Event extends Layer {

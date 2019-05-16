@@ -11,7 +11,7 @@ import control.Control;
  * 
  * 事件信息
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class EffectModel extends Tick implements Port {

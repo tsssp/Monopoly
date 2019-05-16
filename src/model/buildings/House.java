@@ -18,7 +18,7 @@ import util.MyThread;
  * 
  * 居民房 1-5级 平房 店铺 商场 商业大楼 摩天大楼
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class House extends Building {

@@ -20,15 +20,12 @@ import model.PlayerModel;
 import model.Port;
 import model.TextTipModel;
 import model.buildings.Building;
-import model.buildings.Library;
 import model.buildings.Hospital;
 import model.buildings.News;
 import model.buildings.Origin;
 import model.buildings.Park;
 import model.buildings.Point;
-import model.buildings.Tower;
-import model.buildings.WestGate;
-import model.buildings.SecurityDepartment;
+import model.buildings.Prison;
 import model.buildings.Shop_;
 import model.card.Card;
 import model.card.TortoiseCard;
@@ -60,6 +57,7 @@ public class Control {
      * 游戏对象
      */
     private GameRunning run = null;
+
     private List<Port> models = new ArrayList<Port>();
     private List<PlayerModel> players = null;
     private BuildingsModel building = null;
@@ -69,6 +67,7 @@ public class Control {
     private DiceModel dice = null;
     private EventsModel events = null;
     private EffectModel effect = null;
+
     private Music music = null;
 
     /**
@@ -164,6 +163,7 @@ public class Control {
         this.effect.showImg("start");
     }
 
+
     /**
      * 游戏背景音乐
      */
@@ -216,29 +216,32 @@ public class Control {
      */
     public void pressButton() {
         PlayerModel player = this.run.getNowPlayer();
-        this.run.nextState();
-
-    } else
-
-    {
-        // 设置骰子对象开始转动时间
-        this.dice.setStartTick(Control.tick);
-        // 设置骰子对象结束转动时间
-        this.dice.setNextTick(this.dice.getStartTick()
-                + this.dice.getLastTime());
-        // 将运行对象点数传入骰子对象
-        this.dice.setPoint(this.run.getPoint());
-        // 转换状态至“移动状态”
-        this.run.nextState();
-        // 骰子转动完毕后玩家移动
-        this.run.getNowPlayer().setStartTick(this.dice.getNextTick() + 10);
-        this.run.getNowPlayer().setNextTick(
-                this.run.getNowPlayer().getStartTick()
-                        + this.run.getNowPlayer().getLastTime()
-                        * (this.run.getPoint() + 1));
+        if (player.getInHospital() > 0 || player.getInPrison() > 0) {
+            this.run.nextState();
+            if (player.getInHospital() > 0) {
+                this.textTip.showTextTip(player, player.getName() + "住院中.", 3);
+            } else if (player.getInPrison() > 0) {
+                this.textTip.showTextTip(player, player.getName() + "在监狱.", 3);
+            }
+            this.run.nextState();
+        } else {
+            // 设置骰子对象开始转动时间
+            this.dice.setStartTick(Control.tick);
+            // 设置骰子对象结束转动时间
+            this.dice.setNextTick(this.dice.getStartTick()
+                    + this.dice.getLastTime());
+            // 将运行对象点数传入骰子对象
+            this.dice.setPoint(this.run.getPoint());
+            // 转换状态至“移动状态”
+            this.run.nextState();
+            // 骰子转动完毕后玩家移动
+            this.run.getNowPlayer().setStartTick(this.dice.getNextTick() + 10);
+            this.run.getNowPlayer().setNextTick(
+                    this.run.getNowPlayer().getStartTick()
+                            + this.run.getNowPlayer().getLastTime()
+                            * (this.run.getPoint() + 1));
+        }
     }
-
-}
 
     /**
      * 玩家移动
@@ -410,12 +413,12 @@ public class Control {
         // 当前玩家
         PlayerModel player = this.run.getNowPlayer();
         if (player.getInHospital() > 0) {
-            this.textTip.showTextTip(player, player.getName() + "当前在校医院,不能移动.",
+            this.textTip.showTextTip(player, player.getName() + "当前在医院,不能移动.",
                     2);
             // 更换玩家状态
             this.run.nextState();
-        } else if (player.getInSecurityDepartment() > 0) {
-            this.textTip.showTextTip(player, player.getName() + "当前在保卫部,不能移动.",
+        } else if (player.getInPrison() > 0) {
+            this.textTip.showTextTip(player, player.getName() + "当前在监狱,不能移动.",
                     2);
             // 更换玩家状态
             this.run.nextState();
@@ -434,12 +437,11 @@ public class Control {
         // 该地点房屋
         Building building = this.building.getBuilding(player.getY() / 60,
                 player.getX() / 60);
-        System.out.println(building);
         if (building != null) {// 获取房屋
             int event = building.getEvent();
-            System.out.println(event);
             // 触发房屋信息
             disposeStopEvent(building, event, player);
+
         }
     }
 
@@ -448,15 +450,6 @@ public class Control {
      */
     private void disposeStopEvent(Building b, int event, PlayerModel player) {
         switch (event) {
-            case GameState.WESTGATE_EVENT:
-                stopInWestGate(b, player);
-                break;
-            case GameState.TOWER_EVENT:
-                stopInTower(b, player);
-                break;
-            case GameState.LIBRARY_EVENT:
-                stopInLibrary(b, player);
-                break;
             case GameState.HOSPITAL_EVENT:
                 // 停留在医院
                 stopInHospital(b, player);
@@ -471,7 +464,7 @@ public class Control {
                 break;
             case GameState.NEWS_EVENT:
                 // 停留在新闻点上
-                stopInRandomEvents(b, player);
+                stopInNews(b, player);
                 break;
             case GameState.ORIGIN_EVENT:
                 // 停留在原点
@@ -485,23 +478,23 @@ public class Control {
                 // 停留在点卷位
                 stopInPoint(b, player);
                 break;
-            case GameState.SECURITYDEPARTMENT_EVENT:
-                // 停留在保卫部
-                stopInSecurityDepartment(b, player);
-
+            case GameState.PRISON_EVENT:
+                // 停留在监狱
+                stopInPrison(b, player);
                 break;
             case GameState.SHOP_EVENT:
                 // 停留在商店
                 stopInShop(b, player);
                 break;
         }
+
     }
 
     /**
      * 停留在商店
      */
     private void stopInShop(Building b, PlayerModel player) {
-        if (player.getNx() >= 0) {
+        if (player.getNx() > 0) {
             // 为商店的货架从新生成商品
             ((Shop_) b).createCards();
             // 为商店面板更新新的卡片商品
@@ -513,31 +506,14 @@ public class Control {
         }
     }
 
-    private void stopInWestGate(Building b, PlayerModel player) {
-        if (b.isPurchasability()) {// 玩家房屋
-            if (b.getOwner() == null) { // 无人房屋
-                // 执行买房操作
-                this.buyWestGate(b, player);
-            } else {// 有人房屋
-                if (b.getOwner().equals(player)) {// 自己房屋
-                    // 执行升级房屋操作
-                    this.goToOrigin(b, player);
-                } else {// 别人房屋
-                    // 执行交税操作
-                    this.giveTax(b, player);
-                }
-            }
-        }
-    }
-
     /**
-     * 停留在保卫部
+     * 停留在监狱
      */
-    private void stopInSecurityDepartment(Building b, PlayerModel player) {
-        int days = (int) (Math.random() * 2) + 2;
-        player.setInSecurityDepartment(days);
-        int random = (int) (Math.random() * ((SecurityDepartment) b).getEvents().length);
-        String text = ((SecurityDepartment) b).getEvents()[random];
+    private void stopInPrison(Building b, PlayerModel player) {
+        int days = (int) (Math.random() * 3) + 2;
+        player.setInPrison(days);
+        int random = (int) (Math.random() * ((Prison) b).getEvents().length);
+        String text = ((Prison) b).getEvents()[random];
         this.textTip.showTextTip(player, player.getName() + text + "停留"
                 + (days - 1) + "天.", 3);
         new Thread(new MyThread(run, 1)).start();
@@ -558,6 +534,7 @@ public class Control {
      */
     private void stopInPack(Building b, PlayerModel player) {
         int random = (int) (Math.random() * ((Park) b).getImgageEvents().length);
+
         switch (random) {
             case 0:
             case 1:
@@ -596,17 +573,9 @@ public class Control {
         int random = (int) (Math.random() * ((News) b).getImgageEvents().length);
         switch (random) {
             case 0:
-                // 设置天数
-                player.setInHospital(player.getInHospital() + 1);
-                // 玩家位置切换到医院位置
-                if (LandModel.hospital != null) {
-                    player.setX(LandModel.hospital.x);
-                    player.setY(LandModel.hospital.y);
-                }
-                break;
             case 1:
                 // 设置天数
-                player.setInHospital(player.getInHospital() + 3);
+                player.setInHospital(player.getInHospital() + 4);
                 // 玩家位置切换到医院位置
                 if (LandModel.hospital != null) {
                     player.setX(LandModel.hospital.x);
@@ -657,6 +626,7 @@ public class Control {
                 break;
             case 16:
                 for (int i = 0; i < player.getCards().size(); i++) {
+//				System.out.println(player.getCards().get(i).getcName());
                     // 嫁祸卡
                     if (player.getCards().get(i).getName().equals("CrossingCard")) {
                         player.getCards().remove(i);
@@ -678,48 +648,6 @@ public class Control {
         new Thread(new MyThread(run, 3)).start();
     }
 
-    private void stopInRandomEvents(Building b, PlayerModel player) {
-        int random = (int) (Math.random() * ((News) b).getImgageEvents().length);
-        switch (random) {
-            case 0:
-                // 设置天数
-                player.setInHospital(player.getInHospital() + 1);
-                // 玩家位置切换到医院位置
-                if (LandModel.hospital != null) {
-                    player.setX(LandModel.hospital.x);
-                    player.setY(LandModel.hospital.y);
-                }
-                break;
-            case 1:
-                // 设置天数
-                player.setInHospital(player.getInHospital() + 3);
-                // 玩家位置切换到医院位置
-                if (LandModel.hospital != null) {
-                    player.setX(LandModel.hospital.x);
-                    player.setY(LandModel.hospital.y);
-                }
-                break;
-            case 2:
-                //雾霾征收环保税
-                player.setCash(player.getCash() - 1500);
-                break;
-            case 3:
-                //发放奖学金
-                player.setCash(player.getCash() + 2000);
-                break;
-            case 4:
-                //发放奖学金
-                player.setCash(player.getCash() + 2000);
-                break;
-            default:
-                break;
-        }
-        // 在事件层显示事件
-        this.events.showImg(((News) b).getImgageEvents()[random], 3, new Point(
-                420, 160, 0));
-        new Thread(new MyThread(run, 3)).start();
-    }
-
     /**
      * 停留在乐透点上
      */
@@ -731,36 +659,6 @@ public class Control {
     /**
      * 停留在可操作土地
      */
-    private void stopInTower(Building b, PlayerModel player) {
-        List<Building> buildings = player.getBuildings();
-        if (buildings.size() > 0) {
-            int random = (int) (Math.random() * buildings.size());
-            Building tmp = buildings.get(random);
-            String name = tmp.getName();
-            String upName = tmp.getUpName();
-            if (tmp.canUpLevel()) {
-                tmp.setLevel(tmp.getLevel() + 1);
-                this.textTip.showTextTip(player, "路过博雅塔，使" + player.getName() + "的"
-                        + name + "升级成" + upName + ". ", 3);
-                new Thread(new MyThread(run, 3)).start();
-            } else {
-                this.textTip.showTextTip(player, player.getName() + " 无法升级 "
-                        + name + ". ", 3);
-                new Thread(new MyThread(run, 3)).start();
-            }
-        } else {
-            this.textTip.showTextTip(player, player.getName() + ((Tower) b).getEvents()[1], 2);
-            new Thread(new MyThread(run, 3)).start();
-        }
-    }
-
-    private void stopInLibrary(Building b, PlayerModel player) {
-        this.textTip.showTextTip(player, player.getName() + ((Library) b).getEvents()[0], 2);
-        player.setCash(player.getCash() + 1000);
-        this.run.stayPlayer();
-        new Thread(new MyThread(run, 2)).start();
-    }
-
     private void stopInHouse(Building b, PlayerModel player) {
         if (b.isPurchasability()) {// 玩家房屋
             if (b.getOwner() == null) { // 无人房屋
@@ -778,24 +676,6 @@ public class Control {
         }
     }
 
-    private void goToOrigin(Building b, PlayerModel player) {
-        int choose = JOptionPane.showConfirmDialog(
-                null,
-                "亲爱的:" + player.getName() + "\r\n" + "是否传送至东门？\r\n");
-        if (choose == JOptionPane.OK_OPTION) {
-            if (LandModel.Origin != null) {
-                player.setX(LandModel.Origin.x);
-                player.setY(LandModel.Origin.y);
-                this.textTip.showTextTip(player, player.getName()
-                        + " 传送到了东门. ", 3);
-            } else {
-                this.textTip.showTextTip(player, player.getName()
-                        + " 操作失败. ", 3);
-            }
-        }
-        new Thread(new MyThread(run, 1)).start();
-    }
-
     /**
      * 执行交税操作
      */
@@ -803,11 +683,11 @@ public class Control {
         if (b.getOwner().getInHospital() > 0) {
             // 增加文本提示
             this.textTip.showTextTip(player, b.getOwner().getName()
-                    + "正在校医院,免交过路费.", 3);
-        } else if (b.getOwner().getInSecurityDepartment() > 0) {
+                    + "正在住院,免交过路费.", 3);
+        } else if (b.getOwner().getInPrison() > 0) {
             // 增加文本提示
             this.textTip.showTextTip(player, b.getOwner().getName()
-                    + "正在保卫部,免交过路费.", 3);
+                    + "正在监狱,免交过路费.", 3);
         } else {
             int revenue = b.getRevenue();
             // 该玩家减少金币
@@ -817,6 +697,7 @@ public class Control {
             // 增加文本提示
             this.textTip.showTextTip(player, player.getName() + "经过"
                     + b.getOwner().getName() + "的地盘，过路费:" + revenue + "金币.", 3);
+
         }
         new Thread(new MyThread(run, 1)).start();
     }
@@ -852,32 +733,6 @@ public class Control {
         new Thread(new MyThread(run, 1)).start();
     }
 
-    private void buyWestGate(Building b, PlayerModel player) {
-        int price = b.getUpLevelPrice();
-        int choose = JOptionPane.showConfirmDialog(
-                null,
-                "亲爱的:" + player.getName() + "\r\n" + "是否购买下西门？\r\n"
-                        + "价格：" + price + " 金币.");
-
-        if (choose == JOptionPane.OK_OPTION) {
-            // 购买
-            if (player.getCash() >= price) {
-                b.setOwner(player);
-                b.setLevel(1);
-                // 将该房屋加入当前玩家的房屋列表下
-                player.getBuildings().add(b);
-                // 减少需要的金币
-                player.setCash(player.getCash() - price);
-                this.textTip.showTextTip(player, player.getName()
-                        + " 买下了西门.花费了: " + price + "金币. ", 3);
-            } else {
-                this.textTip.showTextTip(player, player.getName()
-                        + " 金币不足,操作失败. ", 3);
-            }
-        }
-        new Thread(new MyThread(run, 1)).start();
-    }
-
     /**
      * 执行买房操作
      */
@@ -888,6 +743,7 @@ public class Control {
                 "亲爱的:" + player.getName() + "\r\n" + "是否购买下这块地？\r\n"
                         + b.getName() + "→" + b.getUpName() + "\r\n" + "价格："
                         + price + " 金币.");
+
         if (choose == JOptionPane.OK_OPTION) {
             // 购买
             if (player.getCash() >= price) {
@@ -962,9 +818,11 @@ public class Control {
         new Thread(new MyThread(run, 1)).start();
     }
 
+
     /**
      * 乌龟卡BUff
      */
+
     private void buffTortoiseCard(TortoiseCard card, List<Card> delete) {
         if (card.getLife() <= 0) {
             delete.add(card);
@@ -1092,11 +950,11 @@ public class Control {
             // 使用
             PlayerModel cPlayer = card.getOwner().getOtherPlayer();
             // 设置天数
-            cPlayer.setInSecurityDepartment(cPlayer.getInSecurityDepartment() + 2);
+            cPlayer.setInPrison(cPlayer.getInPrison() + 2);
             // 玩家位置切换到医院位置
-            if (LandModel.SecurityDepartment != null) {
-                cPlayer.setX(LandModel.SecurityDepartment.x);
-                cPlayer.setY(LandModel.SecurityDepartment.y);
+            if (LandModel.prison != null) {
+                cPlayer.setX(LandModel.prison.x);
+                cPlayer.setY(LandModel.prison.y);
             }
             // 增加文本提示
             this.textTip

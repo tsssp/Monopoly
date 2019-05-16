@@ -9,7 +9,7 @@ import control.Control;
  * 起点 玩家通过时奖励金钱
  * 
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Origin extends Building {

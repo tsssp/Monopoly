@@ -11,7 +11,7 @@ import control.Control;
  * 医院 角色到达此地点，可以让病患出院；角色住院完毕后，会从这里继续游戏 住院时间：1 - 4天
  * 
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Hospital extends Building {

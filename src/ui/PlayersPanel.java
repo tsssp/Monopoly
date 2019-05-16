@@ -15,7 +15,7 @@ import javax.swing.*;
  * 
  * 玩家信息面板刷新
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class PlayersPanel extends Layer {

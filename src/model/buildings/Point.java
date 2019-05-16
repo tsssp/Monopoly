@@ -10,7 +10,7 @@ import control.Control;
  * 10 30 50 点卷位 角色到达点卷位的时候，可以获得响应 点卷 的金额
  * 
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Point extends Building {

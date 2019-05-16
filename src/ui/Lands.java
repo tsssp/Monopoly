@@ -11,7 +11,7 @@ import model.LandModel;
 /**
  * ÍÁµØË¢ÐÂ²ã
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Lands extends Layer {

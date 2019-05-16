@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4cf62e47-6e87-4a17-b1e4-b8e257c44a2d" name="Default Changelist" comment="Merge branch 'PaiTong' into dev&#10;&#10;# Conflicts solved:&#10;#&#9;.idea/encodings.xml&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/workspace.xml&#10;#&#9;bin/ui/config/FrameConfig$1.class&#10;#&#9;bin/ui/config/FrameConfig$2.class&#10;#&#9;bin/ui/config/FrameConfig.class&#10;&#10;TODO:&#10;#&#9;src/control/Control.java&#10;#&#9;src/model/LandModel.java&#10;#&#9;src/ui/JPanelGame.java">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/LandModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/LandModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/config/FrameConfig$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ui/config/FrameConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ui/config/Photo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/Control.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/Control.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/GameRunning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/GameRunning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/BackgroundModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BackgroundModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/BuildingsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BuildingsModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/DiceModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/DiceModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/EffectModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/EffectModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/EventsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/EventsModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/LandModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/LandModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/PlayerModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/PlayerModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/TextTipModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/TextTipModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Tick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Tick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/Building.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/Hospital.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/Hospital.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/House.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/House.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/Lottery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/Lottery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/News.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/News.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/Origin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/Origin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/Park.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/Park.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/Prison.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/Prison.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/buildings/Shop_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/buildings/Shop_.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Background.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Background.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Buildings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Buildings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Dice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/JPanelGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/JPanelGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Lands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Lands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Layer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/PlayerInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayerInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Players.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Players.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/PlayersPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayersPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/TextTip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/TextTip.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/control/Control.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="28896">
+              <caret line="1416" column="56" lean-forward="true" selection-start-line="1416" selection-start-column="56" selection-end-line="1416" selection-end-column="56" />
+              <folding>
+                <element signature="docComment;class#Control#0" />
+                <element signature="e#1909#1910#0" expanded="true" />
+                <element signature="e#1934#1935#0" expanded="true" />
+                <element signature="e#3516#3517#0" expanded="true" />
+                <element signature="e#3536#3537#0" expanded="true" />
+                <element signature="e#3577#3578#0" expanded="true" />
+                <element signature="e#3598#3599#0" expanded="true" />
+                <element signature="e#3637#3638#0" expanded="true" />
+                <element signature="e#3659#3660#0" expanded="true" />
+                <element signature="e#3701#3702#0" expanded="true" />
+                <element signature="e#3725#3726#0" expanded="true" />
+                <element signature="e#3755#3756#0" expanded="true" />
+                <element signature="e#3773#3774#0" expanded="true" />
+                <element signature="e#3807#3808#0" expanded="true" />
+                <element signature="e#3827#3828#0" expanded="true" />
+                <element signature="e#3863#3864#0" expanded="true" />
+                <element signature="e#3884#3885#0" expanded="true" />
+                <element signature="e#3919#3920#0" expanded="true" />
+                <element signature="e#3936#3937#0" expanded="true" />
+                <element signature="e#3966#3967#0" expanded="true" />
+                <element signature="e#3984#3985#0" expanded="true" />
+                <element signature="e#4018#4019#0" expanded="true" />
+                <element signature="e#4038#4039#0" expanded="true" />
+                <element signature="e#4070#4071#0" expanded="true" />
+                <element signature="e#4089#4090#0" expanded="true" />
+                <element signature="e#40269#40270#0" expanded="true" />
+                <element signature="e#40325#40326#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/LandModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="777">
+              <caret line="198" lean-forward="true" selection-start-line="198" selection-end-line="198" />
+              <folding>
+                <element signature="e#1601#1602#0" expanded="true" />
+                <element signature="e#1674#1675#0" expanded="true" />
+                <element signature="e#1705#1706#0" expanded="true" />
+                <element signature="e#1727#1728#0" expanded="true" />
+                <element signature="e#1771#1772#0" expanded="true" />
+                <element signature="e#1802#1803#0" expanded="true" />
+                <element signature="e#8293#8294#0" expanded="true" />
+                <element signature="e#8311#8312#0" expanded="true" />
+                <element signature="e#8377#8378#0" expanded="true" />
+                <element signature="e#8425#8426#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/BuildingsModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/PlayerModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="672">
+              <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/control/GameRunning.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="73" column="7" selection-start-line="73" selection-start-column="7" selection-end-line="73" selection-end-column="7" />
+              <folding>
+                <element signature="e#1287#1288#0" expanded="true" />
+                <element signature="e#1320#1321#0" expanded="true" />
+                <element signature="e#2117#2118#0" expanded="true" />
+                <element signature="e#2145#2146#0" expanded="true" />
+                <element signature="e#2199#2200#0" expanded="true" />
+                <element signature="e#2242#2243#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ui/JPanelGame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="20" column="43" lean-forward="true" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+              <folding>
+                <element signature="e#1546#1547#0" expanded="true" />
+                <element signature="e#1576#1577#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/Dice.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ui/DiceButton.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1092">
+              <caret line="65" column="32" selection-start-line="65" selection-start-column="32" selection-end-line="65" selection-end-column="32" />
+              <folding>
+                <element signature="e#1452#1453#0" expanded="true" />
+                <element signature="e#1488#1489#0" expanded="true" />
+                <element signature="e#1542#1543#0" expanded="true" />
+                <element signature="e#1578#1579#0" expanded="true" />
+                <element signature="e#1631#1632#0" expanded="true" />
+                <element signature="e#1665#1666#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/control/Control.java" />
+        <option value="$PROJECT_DIR$/src/model/LandModel.java" />
+        <option value="$PROJECT_DIR$/src/ui/JPanelGame.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Monopoly" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Monopoly" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="737c3f8a-7aca-41b3-abc5-06e4196c5347" name="Default Changelist" comment="" />
+      <created>1556610738336</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1556610738336</updated>
+      <workItem from="1556610740884" duration="10000" />
+      <workItem from="1558017793424" duration="5242000" />
+      <workItem from="1558025329085" duration="1268000" />
+    </task>
+    <task id="LOCAL-00001" summary="Game map updated. New map implemented.&#10;TODO: implement move4&#10;TODO: reset spawn point">
+      <created>1558023888023</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1558023888023</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="603000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1748401" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Learn" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32832617" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39914164" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" x="22" y="371" width="1876" height="307" id="Terminal" maximized="true" order="9" type="WINDOWED" weight="0.32939914" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32885906" />
+      <window_info anchor="bottom" id="Tail" order="13" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Maven" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+    </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge branch 'PaiTong' into dev&#10;&#10;# Conflicts solved:&#10;#&#9;.idea/encodings.xml&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/workspace.xml&#10;#&#9;bin/ui/config/FrameConfig$1.class&#10;#&#9;bin/ui/config/FrameConfig$2.class&#10;#&#9;bin/ui/config/FrameConfig.class&#10;&#10;TODO:&#10;#&#9;src/control/Control.java&#10;#&#9;src/model/LandModel.java&#10;#&#9;src/ui/JPanelGame.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'PaiTong' into dev&#10;&#10;# Conflicts solved:&#10;#&#9;.idea/encodings.xml&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/workspace.xml&#10;#&#9;bin/ui/config/FrameConfig$1.class&#10;#&#9;bin/ui/config/FrameConfig$2.class&#10;#&#9;bin/ui/config/FrameConfig.class&#10;&#10;TODO:&#10;#&#9;src/control/Control.java&#10;#&#9;src/model/LandModel.java&#10;#&#9;src/ui/JPanelGame.java" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/ui/Lands.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#1143#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/model/LandModel.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="9" column="29" lean-forward="true" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#4153#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/control/Control.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28896">
+          <caret line="1416" column="56" lean-forward="true" selection-start-line="1416" selection-start-column="56" selection-end-line="1416" selection-end-column="56" />
+          <folding>
+            <element signature="docComment;class#Control#0" />
+            <element signature="e#1909#1910#0" expanded="true" />
+            <element signature="e#1934#1935#0" expanded="true" />
+            <element signature="e#3516#3517#0" expanded="true" />
+            <element signature="e#3536#3537#0" expanded="true" />
+            <element signature="e#3577#3578#0" expanded="true" />
+            <element signature="e#3598#3599#0" expanded="true" />
+            <element signature="e#3637#3638#0" expanded="true" />
+            <element signature="e#3659#3660#0" expanded="true" />
+            <element signature="e#3701#3702#0" expanded="true" />
+            <element signature="e#3725#3726#0" expanded="true" />
+            <element signature="e#3755#3756#0" expanded="true" />
+            <element signature="e#3773#3774#0" expanded="true" />
+            <element signature="e#3807#3808#0" expanded="true" />
+            <element signature="e#3827#3828#0" expanded="true" />
+            <element signature="e#3863#3864#0" expanded="true" />
+            <element signature="e#3884#3885#0" expanded="true" />
+            <element signature="e#3919#3920#0" expanded="true" />
+            <element signature="e#3936#3937#0" expanded="true" />
+            <element signature="e#3966#3967#0" expanded="true" />
+            <element signature="e#3984#3985#0" expanded="true" />
+            <element signature="e#4018#4019#0" expanded="true" />
+            <element signature="e#4038#4039#0" expanded="true" />
+            <element signature="e#4070#4071#0" expanded="true" />
+            <element signature="e#4089#4090#0" expanded="true" />
+            <element signature="e#40269#40270#0" expanded="true" />
+            <element signature="e#40325#40326#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/LandModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="198" lean-forward="true" selection-start-line="198" selection-end-line="198" />
+          <folding>
+            <element signature="e#1601#1602#0" expanded="true" />
+            <element signature="e#1674#1675#0" expanded="true" />
+            <element signature="e#1705#1706#0" expanded="true" />
+            <element signature="e#1727#1728#0" expanded="true" />
+            <element signature="e#1771#1772#0" expanded="true" />
+            <element signature="e#1802#1803#0" expanded="true" />
+            <element signature="e#8293#8294#0" expanded="true" />
+            <element signature="e#8311#8312#0" expanded="true" />
+            <element signature="e#8377#8378#0" expanded="true" />
+            <element signature="e#8425#8426#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/JPanelGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="20" column="43" lean-forward="true" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+          <folding>
+            <element signature="e#1546#1547#0" expanded="true" />
+            <element signature="e#1576#1577#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

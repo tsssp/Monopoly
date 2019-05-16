@@ -12,7 +12,7 @@ import ui.JPanelGame;
  * 
  * 游戏运转处理
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class GameRunning {
@@ -73,7 +73,7 @@ public class GameRunning {
 	 * 当前地图代码
 	 * 
 	 */
-	public static int MAP = 1;
+	public static int MAP = 4;
 	/**
 	 * 
 	 * 游戏上限天数 - 1为无上限

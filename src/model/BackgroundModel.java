@@ -14,7 +14,7 @@ import util.FileUtil;
  * 
  * ±³¾°¸üÐÂ
  * 
- * @author MOVELIGHTS
+ *
  *
  */
 public class BackgroundModel extends Tick implements Port{
@@ -39,7 +39,7 @@ public class BackgroundModel extends Tick implements Port{
 	 * 
 	 */
 	public void startGameInit (){
-		this.bg = new ImageIcon("images/background/bg_0"+GameRunning.MAP+".jpg").getImage();
+		this.bg = new ImageIcon("images/background/bg_0"+1+".jpg").getImage();
 	}
 	@Override
 	public void updata(long tick) {
