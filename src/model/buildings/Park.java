@@ -14,7 +14,7 @@ import control.Control;
  * 公园 与世无争的公园，角色到这里什么大事也不会发生
  * 
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Park extends Building {

@@ -19,7 +19,7 @@ import model.card.*;
  * 
  * ÉÌµêÄ£ÐÍ
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Shop_ extends Building {

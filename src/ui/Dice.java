@@ -14,7 +14,7 @@ import model.DiceModel;
  * 
  * ÷»×ÓÖÀµã²ã
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 @SuppressWarnings("serial")

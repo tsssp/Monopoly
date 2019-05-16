@@ -17,7 +17,7 @@ import model.buildings.Shop_;
 /**
  * 全局房屋信息
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class BuildingsModel extends Tick implements Port{

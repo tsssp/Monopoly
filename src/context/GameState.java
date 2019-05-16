@@ -5,7 +5,7 @@ package context;
  * сно╥Ёёа©
  * 
  * 
- * @author MOVELIGHTS
+ *
  *
  */
 public class GameState {

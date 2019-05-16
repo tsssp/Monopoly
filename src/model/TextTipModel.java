@@ -11,7 +11,7 @@ import control.Control;
  * 
  * 文字提示更新
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class TextTipModel extends Tick implements Port{

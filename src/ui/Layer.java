@@ -12,7 +12,7 @@ import util.FileUtil;
 /**
  * »æÖÆ²ã ³éÏóÀà
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public abstract class Layer extends JPanel{

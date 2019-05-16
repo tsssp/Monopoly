@@ -15,7 +15,7 @@ import control.GameRunning;
 /**
  * Íæ¼ÒÐÅÏ¢
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class PlayerModel extends Tick implements Port {

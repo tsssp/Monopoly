@@ -4,7 +4,7 @@ package model;
  * 
  * 游戏对象父类
  * 
- * @author MOVELIGHTS
+ *
  *
  */
 public class Tick {
