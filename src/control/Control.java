@@ -216,29 +216,32 @@ public class Control {
      */
     public void pressButton() {
         PlayerModel player = this.run.getNowPlayer();
-        this.run.nextState();
-
-    } else
-
-    {
-        // 设置骰子对象开始转动时间
-        this.dice.setStartTick(Control.tick);
-        // 设置骰子对象结束转动时间
-        this.dice.setNextTick(this.dice.getStartTick()
-                + this.dice.getLastTime());
-        // 将运行对象点数传入骰子对象
-        this.dice.setPoint(this.run.getPoint());
-        // 转换状态至“移动状态”
-        this.run.nextState();
-        // 骰子转动完毕后玩家移动
-        this.run.getNowPlayer().setStartTick(this.dice.getNextTick() + 10);
-        this.run.getNowPlayer().setNextTick(
-                this.run.getNowPlayer().getStartTick()
-                        + this.run.getNowPlayer().getLastTime()
-                        * (this.run.getPoint() + 1));
+        if (player.getInHospital() > 0 || player.getInSecurityDepartment() > 0) {
+            this.run.nextState();
+            if (player.getInHospital() > 0) {
+                this.textTip.showTextTip(player, player.getName() + "在校医院.", 3);
+            } else if (player.getInSecurityDepartment() > 0) {
+                this.textTip.showTextTip(player, player.getName() + "在保卫部.", 3);
+            }
+            this.run.nextState();
+        } else {
+            // 设置骰子对象开始转动时间
+            this.dice.setStartTick(Control.tick);
+            // 设置骰子对象结束转动时间
+            this.dice.setNextTick(this.dice.getStartTick()
+                    + this.dice.getLastTime());
+            // 将运行对象点数传入骰子对象
+            this.dice.setPoint(this.run.getPoint());
+            // 转换状态至“移动状态”
+            this.run.nextState();
+            // 骰子转动完毕后玩家移动
+            this.run.getNowPlayer().setStartTick(this.dice.getNextTick() + 10);
+            this.run.getNowPlayer().setNextTick(
+                    this.run.getNowPlayer().getStartTick()
+                            + this.run.getNowPlayer().getLastTime()
+                            * (this.run.getPoint() + 1));
+        }
     }
-
-}
 
     /**
      * 玩家移动
