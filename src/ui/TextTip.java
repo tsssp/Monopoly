@@ -63,6 +63,7 @@ public class TextTip extends Layer {
 			g.drawImage(bg, pointWindow.x, pointWindow.y, pointWindow.x + bg.getWidth(null),
 					pointWindow.y + bg.getHeight(null), 0, 0, bg.getWidth(null),
 					bg.getHeight(null), null);
+			g.setFont(new Font("ËÎÌו", Font.BOLD, 12));
 			// »זÖÆÎÄ×Ö
 			drawSting(g);
 		}
