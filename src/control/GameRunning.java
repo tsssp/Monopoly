@@ -73,7 +73,7 @@ public class GameRunning {
 	 * 当前地图代码
 	 * 
 	 */
-	public static int MAP = 2;
+	public static int MAP = 3;
 	/**
 	 * 
 	 * 游戏上限天数 - 1为无上限

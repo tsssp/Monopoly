@@ -91,7 +91,7 @@ public class Control {
     }
 
     private void generate_move_map() {
-        int[][] map = this.land.land4;
+        int[][] map = this.land.getLand();
         int n = map.length;
         int m = map[0].length;
         int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
@@ -103,13 +103,17 @@ public class Control {
             for (int j = 0; j < m; ++j) {
                 if (map[i][j] == ORIGIN) {
                     move_map[i][j] = 1;
-                    move_map[i][j - 1] = -1;
                     sx = i;
                     sy = j;
                 } else
                     move_map[i][j] = 0;
             }
         }
+
+        if (GameRunning.MAP == 4)
+            move_map[sx][sy - 1] = -1;
+        else  // in all other map, players move towards up before reach ORIGIN
+            move_map[sx + 1][sy] = -1;
 
         int[][] bfs = new int[n * m][2];
         bfs[1][0] = sx;
@@ -134,7 +138,7 @@ public class Control {
         // test out
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
-                System.out.printf("%3d",move_map[i][j]);
+                System.out.printf("%3d", move_map[i][j]);
             }
             System.out.println();
         }
@@ -163,8 +167,7 @@ public class Control {
         // 创建一个新的建筑模型
         this.building = new BuildingsModel(land);
         this.models.add(building);
-        // create map for moving strategy
-        this.generate_move_map();
+
         // 创建一个新的玩家数组
         this.players = new ArrayList<PlayerModel>();
         this.players.add(new PlayerModel(1, this));
@@ -212,6 +215,10 @@ public class Control {
         this.run.startGameInit();
         // panel 初始化
         this.panel.startGamePanelInit();
+
+        // create map for moving strategy
+        this.generate_move_map();
+
         // 游戏背景音乐
         this.startMusic();
         // 游戏开始产生地图效果
@@ -304,13 +311,15 @@ public class Control {
         // 人物运动
         for (int i = 0; i < (60 / this.run.getNowPlayer().getLastTime()); i++) {
             // 移动玩家
-            this.move04();
+            move_universal();
 //            if (GameRunning.MAP == 1) {
 //                this.move01();
 //            } else if (GameRunning.MAP == 2) {
 //                this.move02();
 //            } else if (GameRunning.MAP == 3) {
 //                this.move03();
+//            } else if (GameRunning.MAP == 4) {
+//                this.move04();
 //            }
         }
     }
@@ -461,1120 +470,1179 @@ public class Control {
         }
     }
 
-    private void move04() {
+    private void move_universal() {
 
         PlayerModel p = this.run.getNowPlayer();
         // 单位移动像素
         int movePixel = 1;
         int grid_size = 60;
+        int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
 
-        // find origin
+        int n = land.getLand().length;
+        int m = land.getLand()[0].length;
 
-        if (p.getX() < 12 * 60 && p.getY() == 0) {
-            p.setX(p.getX() + movePixel);
-        } else if (p.getX() == 12 * 60 && p.getY() < 7 * 60) {
-            p.setY(p.getY() + movePixel);
-        } else if (p.getX() > 0 && p.getY() == 7 * 60) {
-            p.setX(p.getX() - movePixel);
-        } else if (p.getX() == 0 && p.getY() > 0) {
-            p.setY(p.getY() - movePixel);
-        }
-    }
+        int pixel_x = p.getX();
+        int pixel_y = p.getY();
 
-    /**
-     * 玩家移动完毕，停下判断
-     */
-    public void playerStopJudge() {
-        // 当前玩家
-        PlayerModel player = this.run.getNowPlayer();
-        if (player.getInHospital() > 0) {
-            this.textTip.showTextTip(player, player.getName() + "当前在校医院,不能移动.",
-                    2);
-            // 更换玩家状态
-            this.run.nextState();
-        } else if (player.getInSecurityDepartment() > 0) {
-            this.textTip.showTextTip(player, player.getName() + "当前在保卫部,不能移动.",
-                    2);
-            // 更换玩家状态
-            this.run.nextState();
-        } else {
-            // 进行玩家操作（买房 事件等）
-            this.playerStop();
-        }
-    }
+        int x = pixel_y / grid_size;
+        int y = pixel_x / grid_size;
 
-    /**
-     * 玩家移动完毕，停下操作
-     */
-    public void playerStop() {
-        // 当前玩家
-        PlayerModel player = this.run.getNowPlayer();
-        // 该地点房屋
-        Building building = this.building.getBuilding(player.getY() / 60,
-                player.getX() / 60);
-        System.out.println(building);
-        if (building != null) {// 获取房屋
-            int event = building.getEvent();
-            System.out.println(event);
-            // 触发房屋信息
-            disposeStopEvent(building, event, player);
-        }
-    }
-
-    /**
-     * 停留房屋事件处理
-     */
-    private void disposeStopEvent(Building b, int event, PlayerModel player) {
-        switch (event) {
-            case GameState.WESTGATE_EVENT:
-                stopInWestGate(b, player);
-                break;
-            case GameState.TOWER_EVENT:
-                stopInTower(b, player);
-                break;
-            case GameState.LIBRARY_EVENT:
-                stopInLibrary(b, player);
-                break;
-            case GameState.HOSPITAL_EVENT:
-                // 停留在医院
-                stopInHospital(b, player);
-                break;
-            case GameState.HUOSE_EVENT:
-                // 停留在可操作土地
-                stopInHouse(b, player);
-                break;
-            case GameState.LOTTERY_EVENT:
-                // 停留在乐透点上
-                stopInLottery(b, player);
-                break;
-            case GameState.NEWS_EVENT:
-                // 停留在新闻点上
-                stopInRandomEvents(b, player);
-                break;
-            case GameState.ORIGIN_EVENT:
-                // 停留在原点
-                stopInOrigin(b, player);
-                break;
-            case GameState.PARK_EVENT:
-                // 停留在公园
-                stopInPack(b, player);
-                break;
-            case GameState.POINT_EVENT:
-                // 停留在点卷位
-                stopInPoint(b, player);
-                break;
-            case GameState.SECURITYDEPARTMENT_EVENT:
-                // 停留在保卫部
-                stopInSecurityDepartment(b, player);
-
-                break;
-            case GameState.SHOP_EVENT:
-                // 停留在商店
-                stopInShop(b, player);
-                break;
-        }
-    }
-
-    /**
-     * 停留在商店
-     */
-    private void stopInShop(Building b, PlayerModel player) {
-        if (player.getNx() >= 0) {
-            // 为商店的货架从新生成商品
-            ((Shop_) b).createCards();
-            // 为商店面板更新新的卡片商品
-            this.panel.getShop().addCards((Shop_) b);
-            // 將商店面板推送至頂
-            this.panel.getShop().moveToFront();
-        } else {
-            this.run.nextState();
-        }
-    }
-
-    private void stopInWestGate(Building b, PlayerModel player) {
-        if (b.isPurchasability()) {// 玩家房屋
-            if (b.getOwner() == null) { // 无人房屋
-                // 执行买房操作
-                this.buyWestGate(b, player);
-            } else {// 有人房屋
-                if (b.getOwner().equals(player)) {// 自己房屋
-                    // 执行升级房屋操作
-                    this.goToOrigin(b, player);
-                } else {// 别人房屋
-                    // 执行交税操作
-                    this.giveTax(b, player);
+        if (pixel_x % grid_size == 0 && pixel_y % grid_size == 0) {
+            // at a point
+            for (int k = 0; k < 4; ++k) {
+                int tx = x + dir[k][0];
+                int ty = y + dir[k][1];
+                if (tx < 0 || tx >= n || ty < 0 || ty >= m)
+                    continue;
+                if (move_map[tx][ty] == -1 && move_map[x][y] != 0 ||
+                        move_map[x][y] == -1 && move_map[tx][ty] == 1 ||
+                        move_map[x][y] != -1 && move_map[x][y] < move_map[tx][ty]) {
+                    p.setX(p.getX() + movePixel * dir[k][1]);
+                    p.setY(p.getY() + movePixel * dir[k][0]);
+                    break;
                 }
+
+            }
+        } else {
+            // between two points
+            int[] pos0 = {x, y};
+            int[] pos1 = pos0.clone();
+            if (pixel_x % 60 != 0) {
+                if (grid_size * x < pixel_y)
+                    pos1[1]--;
+                else
+                    pos1[1]++;
+            } else {
+                if (y * grid_size < pixel_x)
+                    pos1[0]--;
+                else
+                    pos1[0]++;
+
+            }
+            // determine dir
+            boolean from0to1;
+            if (move_map[pos0[0]][pos0[1]] == -1) {
+                if (move_map[pos1[0]][pos1[1]] == 1)
+                    from0to1 = true;
+                else
+                    from0to1 = false;
+            } else if (move_map[pos1[0]][pos1[1]] == -1) {
+                if (move_map[pos0[0]][pos0[1]] == 1)
+                    from0to1 = false;
+                else
+                    from0to1 = true;
+            } else if (move_map[pos1[0]][pos1[1]] < move_map[pos0[0]][pos0[1]])
+                from0to1 = false;
+            else
+                from0to1 = true;
+
+            if (from0to1) {
+                p.setX(p.getX() + movePixel * (pos1[1] - pos0[1]));
+                p.setY(p.getY() + movePixel * (pos1[0] - pos0[0]));
+            }
+            else{
+                p.setX(p.getX() + movePixel * (pos0[1] - pos1[1]));
+                p.setY(p.getY() + movePixel * (pos0[0] - pos1[0]));
+            }
+
+        }
+    }
+
+
+        /**
+         * 玩家移动完毕，停下判断
+         */
+        public void playerStopJudge () {
+            // 当前玩家
+            PlayerModel player = this.run.getNowPlayer();
+            if (player.getInHospital() > 0) {
+                this.textTip.showTextTip(player, player.getName() + "当前在校医院,不能移动.",
+                        2);
+                // 更换玩家状态
+                this.run.nextState();
+            } else if (player.getInSecurityDepartment() > 0) {
+                this.textTip.showTextTip(player, player.getName() + "当前在保卫部,不能移动.",
+                        2);
+                // 更换玩家状态
+                this.run.nextState();
+            } else {
+                // 进行玩家操作（买房 事件等）
+                this.playerStop();
             }
         }
-    }
 
-    /**
-     * 停留在保卫部
-     */
-    private void stopInSecurityDepartment(Building b, PlayerModel player) {
-        int days = (int) (Math.random() * 2) + 2;
-        player.setInSecurityDepartment(days);
-        int random = (int) (Math.random() * ((SecurityDepartment) b).getEvents().length);
-        String text = ((SecurityDepartment) b).getEvents()[random];
-        this.textTip.showTextTip(player, player.getName() + text + "停留"
-                + (days - 1) + "天.", 3);
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 停留在点卷位
-     */
-    private void stopInPoint(Building b, PlayerModel player) {
-        player.setNx(((Point) b).getPoint() + player.getNx());
-        this.textTip.showTextTip(player, player.getName() + " 获得 "
-                + ((Point) b).getPoint() + "点卷.", 3);
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 停留在公园
-     */
-    private void stopInPack(Building b, PlayerModel player) {
-        int random = (int) (Math.random() * ((Park) b).getImgageEvents().length);
-        switch (random) {
-            case 0:
-            case 1:
-                // 减一金币
-                player.setCash(player.getCash() - 1);
-                break;
-            case 2:
-                // 减200金币
-                player.setCash(player.getCash() - 200);
-                break;
-            case 3:
-                // 加200金币
-                player.setCash(player.getCash() + 200);
-                break;
+        /**
+         * 玩家移动完毕，停下操作
+         */
+        public void playerStop () {
+            // 当前玩家
+            PlayerModel player = this.run.getNowPlayer();
+            // 该地点房屋
+            Building building = this.building.getBuilding(player.getY() / 60,
+                    player.getX() / 60);
+            System.out.println(building);
+            if (building != null) {// 获取房屋
+                int event = building.getEvent();
+                System.out.println(event);
+                // 触发房屋信息
+                disposeStopEvent(building, event, player);
+            }
         }
-        // 在事件层显示事件
-        this.events.showImg(((Park) b).getImgageEvents()[random], 3, new Point(
-                320, 160, 0));
-        new Thread(new MyThread(run, 3)).start();
-    }
 
-    /**
-     * 停留在原点
-     */
-    private void stopInOrigin(Building b, PlayerModel player) {
-        this.textTip.showTextTip(player, player.getName() + " 在起点停留，奖励 "
-                + ((Origin) b).getReward() + "金币.", 3);
-        player.setCash(player.getCash() + ((Origin) b).getReward());
-        new Thread(new MyThread(run, 1)).start();
-    }
+        /**
+         * 停留房屋事件处理
+         */
+        private void disposeStopEvent (Building b,int event, PlayerModel player){
+            switch (event) {
+                case GameState.WESTGATE_EVENT:
+                    stopInWestGate(b, player);
+                    break;
+                case GameState.TOWER_EVENT:
+                    stopInTower(b, player);
+                    break;
+                case GameState.LIBRARY_EVENT:
+                    stopInLibrary(b, player);
+                    break;
+                case GameState.HOSPITAL_EVENT:
+                    // 停留在医院
+                    stopInHospital(b, player);
+                    break;
+                case GameState.HUOSE_EVENT:
+                    // 停留在可操作土地
+                    stopInHouse(b, player);
+                    break;
+                case GameState.LOTTERY_EVENT:
+                    // 停留在乐透点上
+                    stopInLottery(b, player);
+                    break;
+                case GameState.NEWS_EVENT:
+                    // 停留在新闻点上
+                    stopInRandomEvents(b, player);
+                    break;
+                case GameState.ORIGIN_EVENT:
+                    // 停留在原点
+                    stopInOrigin(b, player);
+                    break;
+                case GameState.PARK_EVENT:
+                    // 停留在公园
+                    stopInPack(b, player);
+                    break;
+                case GameState.POINT_EVENT:
+                    // 停留在点卷位
+                    stopInPoint(b, player);
+                    break;
+                case GameState.SECURITYDEPARTMENT_EVENT:
+                    // 停留在保卫部
+                    stopInSecurityDepartment(b, player);
 
-    /**
-     * 停留在新闻点上
-     */
-    private void stopInNews(Building b, PlayerModel player) {
-        int random = (int) (Math.random() * ((News) b).getImgageEvents().length);
-        switch (random) {
-            case 0:
-                // 设置天数
-                player.setInHospital(player.getInHospital() + 1);
-                // 玩家位置切换到医院位置
-                if (LandModel.hospital != null) {
-                    player.setX(LandModel.hospital.x);
-                    player.setY(LandModel.hospital.y);
-                }
-                break;
-            case 1:
-                // 设置天数
-                player.setInHospital(player.getInHospital() + 3);
-                // 玩家位置切换到医院位置
-                if (LandModel.hospital != null) {
-                    player.setX(LandModel.hospital.x);
-                    player.setY(LandModel.hospital.y);
-                }
-                break;
-            case 2:
-            case 3:
-                player.setCash(player.getCash() - 1000);
-                break;
-            case 4:
-                player.setCash(player.getCash() - 1500);
-                break;
-            case 5:
-                player.setCash(player.getCash() - 2000);
-                break;
-            case 6:
-            case 7:
-                player.setCash(player.getCash() - 300);
-                break;
-            case 8:
-                player.setCash(player.getCash() - 400);
-                break;
-            case 9:
-                // 点卷小于不能发生事件
-                if (player.getNx() < 40) {
-                    stopInNews(b, player);
-                    return;
-                }
-                player.setNx(player.getNx() - 40);
-                break;
-            case 10:
-                player.setCash(player.getCash() - 500);
-                break;
-            case 11:
-                player.setCash(player.getCash() + 1000);
-                break;
-            case 12:
-            case 13:
-                player.setCash(player.getCash() + 2000);
-                break;
-            case 14:
-                player.setCash(player.getCash() + 3999);
-                player.setNx(player.getNx() + 100);
-                break;
-            case 15:
-                player.setNx(player.getNx() + 300);
-                break;
-            case 16:
-                for (int i = 0; i < player.getCards().size(); i++) {
-                    // 嫁祸卡
-                    if (player.getCards().get(i).getName().equals("CrossingCard")) {
-                        player.getCards().remove(i);
-                        // 对手减少金钱.
-                        player.getOtherPlayer().setCash(player.getOtherPlayer().getCash() - 3000);
-                        this.textTip.showTextTip(player, player.getName() + "将一笔\"3000元\"嫁祸给 " + player.getOtherPlayer().getName() + "。真是人算不如天算啊.", 6);
-                        this.events.showImg(((News) b).get3000(), 3, new Point(
-                                420, 160, 0));
-                        new Thread(new MyThread(run, 3)).start();
-                        return;
+                    break;
+                case GameState.SHOP_EVENT:
+                    // 停留在商店
+                    stopInShop(b, player);
+                    break;
+            }
+        }
+
+        /**
+         * 停留在商店
+         */
+        private void stopInShop (Building b, PlayerModel player){
+            if (player.getNx() >= 0) {
+                // 为商店的货架从新生成商品
+                ((Shop_) b).createCards();
+                // 为商店面板更新新的卡片商品
+                this.panel.getShop().addCards((Shop_) b);
+                // 將商店面板推送至頂
+                this.panel.getShop().moveToFront();
+            } else {
+                this.run.nextState();
+            }
+        }
+
+        private void stopInWestGate (Building b, PlayerModel player){
+            if (b.isPurchasability()) {// 玩家房屋
+                if (b.getOwner() == null) { // 无人房屋
+                    // 执行买房操作
+                    this.buyWestGate(b, player);
+                } else {// 有人房屋
+                    if (b.getOwner().equals(player)) {// 自己房屋
+                        // 执行升级房屋操作
+                        this.goToOrigin(b, player);
+                    } else {// 别人房屋
+                        // 执行交税操作
+                        this.giveTax(b, player);
                     }
                 }
-                player.setCash(player.getCash() - 3000);
-                break;
-        }
-        // 在事件层显示事件
-        this.events.showImg(((News) b).getImgageEvents()[random], 3, new Point(
-                420, 160, 0));
-        new Thread(new MyThread(run, 3)).start();
-    }
-
-    private void stopInRandomEvents(Building b, PlayerModel player) {
-        int random = (int) (Math.random() * ((News) b).getImgageEvents().length);
-        switch (random) {
-            case 0:
-                // 设置天数
-                player.setInHospital(player.getInHospital() + 1);
-                // 玩家位置切换到医院位置
-                if (LandModel.hospital != null) {
-                    player.setX(LandModel.hospital.x);
-                    player.setY(LandModel.hospital.y);
-                }
-                break;
-            case 1:
-                // 设置天数
-                player.setInHospital(player.getInHospital() + 3);
-                // 玩家位置切换到医院位置
-                if (LandModel.hospital != null) {
-                    player.setX(LandModel.hospital.x);
-                    player.setY(LandModel.hospital.y);
-                }
-                break;
-            case 2:
-                //雾霾征收环保税
-                player.setCash(player.getCash() - 1500);
-                break;
-            case 3:
-                //发放奖学金
-                player.setCash(player.getCash() + 2000);
-                break;
-            case 4:
-                //发放奖学金
-                player.setCash(player.getCash() + 2000);
-                break;
-            default:
-                break;
-        }
-        // 在事件层显示事件
-        this.events.showImg(((News) b).getImgageEvents()[random], 3, new Point(
-                420, 160, 0));
-        new Thread(new MyThread(run, 3)).start();
-    }
-
-    /**
-     * 停留在乐透点上
-     */
-    private void stopInLottery(Building b, PlayerModel player) {
-        // 未制作
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 停留在可操作土地
-     */
-    private void stopInTower(Building b, PlayerModel player) {
-        List<Building> buildings = player.getBuildings();
-        if (buildings.size() > 0) {
-            int random = (int) (Math.random() * buildings.size());
-            Building tmp = buildings.get(random);
-            String name = tmp.getName();
-            String upName = tmp.getUpName();
-            if (tmp.canUpLevel()) {
-                tmp.setLevel(tmp.getLevel() + 1);
-                this.textTip.showTextTip(player, "路过博雅塔，使" + player.getName() + "的"
-                        + name + "升级成" + upName + ". ", 3);
-                new Thread(new MyThread(run, 3)).start();
-            } else {
-                this.textTip.showTextTip(player, player.getName() + " 无法升级 "
-                        + name + ". ", 3);
-                new Thread(new MyThread(run, 3)).start();
             }
-        } else {
-            this.textTip.showTextTip(player, player.getName() + ((Tower) b).getEvents()[1], 2);
+        }
+
+        /**
+         * 停留在保卫部
+         */
+        private void stopInSecurityDepartment (Building b, PlayerModel player){
+            int days = (int) (Math.random() * 2) + 2;
+            player.setInSecurityDepartment(days);
+            int random = (int) (Math.random() * ((SecurityDepartment) b).getEvents().length);
+            String text = ((SecurityDepartment) b).getEvents()[random];
+            this.textTip.showTextTip(player, player.getName() + text + "停留"
+                    + (days - 1) + "天.", 3);
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        /**
+         * 停留在点卷位
+         */
+        private void stopInPoint (Building b, PlayerModel player){
+            player.setNx(((Point) b).getPoint() + player.getNx());
+            this.textTip.showTextTip(player, player.getName() + " 获得 "
+                    + ((Point) b).getPoint() + "点卷.", 3);
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        /**
+         * 停留在公园
+         */
+        private void stopInPack (Building b, PlayerModel player){
+            int random = (int) (Math.random() * ((Park) b).getImgageEvents().length);
+            switch (random) {
+                case 0:
+                case 1:
+                    // 减一金币
+                    player.setCash(player.getCash() - 1);
+                    break;
+                case 2:
+                    // 减200金币
+                    player.setCash(player.getCash() - 200);
+                    break;
+                case 3:
+                    // 加200金币
+                    player.setCash(player.getCash() + 200);
+                    break;
+            }
+            // 在事件层显示事件
+            this.events.showImg(((Park) b).getImgageEvents()[random], 3, new Point(
+                    320, 160, 0));
             new Thread(new MyThread(run, 3)).start();
         }
-    }
 
-    private void stopInLibrary(Building b, PlayerModel player) {
-        this.textTip.showTextTip(player, player.getName() + ((Library) b).getEvents()[0], 2);
-        player.setCash(player.getCash() + 1000);
-        this.run.stayPlayer();
-        new Thread(new MyThread(run, 2)).start();
-    }
+        /**
+         * 停留在原点
+         */
+        private void stopInOrigin (Building b, PlayerModel player){
+            this.textTip.showTextTip(player, player.getName() + " 在起点停留，奖励 "
+                    + ((Origin) b).getReward() + "金币.", 3);
+            player.setCash(player.getCash() + ((Origin) b).getReward());
+            new Thread(new MyThread(run, 1)).start();
+        }
 
-    private void stopInHouse(Building b, PlayerModel player) {
-        if (b.isPurchasability()) {// 玩家房屋
-            if (b.getOwner() == null) { // 无人房屋
-                // 执行买房操作
-                this.buyHouse(b, player);
-            } else {// 有人房屋
-                if (b.getOwner().equals(player)) {// 自己房屋
-                    // 执行升级房屋操作
-                    this.upHouseLevel(b, player);
-                } else {// 别人房屋
-                    // 执行交税操作
-                    this.giveTax(b, player);
+        /**
+         * 停留在新闻点上
+         */
+        private void stopInNews (Building b, PlayerModel player){
+            int random = (int) (Math.random() * ((News) b).getImgageEvents().length);
+            switch (random) {
+                case 0:
+                    // 设置天数
+                    player.setInHospital(player.getInHospital() + 1);
+                    // 玩家位置切换到医院位置
+                    if (LandModel.hospital != null) {
+                        player.setX(LandModel.hospital.x);
+                        player.setY(LandModel.hospital.y);
+                    }
+                    break;
+                case 1:
+                    // 设置天数
+                    player.setInHospital(player.getInHospital() + 3);
+                    // 玩家位置切换到医院位置
+                    if (LandModel.hospital != null) {
+                        player.setX(LandModel.hospital.x);
+                        player.setY(LandModel.hospital.y);
+                    }
+                    break;
+                case 2:
+                case 3:
+                    player.setCash(player.getCash() - 1000);
+                    break;
+                case 4:
+                    player.setCash(player.getCash() - 1500);
+                    break;
+                case 5:
+                    player.setCash(player.getCash() - 2000);
+                    break;
+                case 6:
+                case 7:
+                    player.setCash(player.getCash() - 300);
+                    break;
+                case 8:
+                    player.setCash(player.getCash() - 400);
+                    break;
+                case 9:
+                    // 点卷小于不能发生事件
+                    if (player.getNx() < 40) {
+                        stopInNews(b, player);
+                        return;
+                    }
+                    player.setNx(player.getNx() - 40);
+                    break;
+                case 10:
+                    player.setCash(player.getCash() - 500);
+                    break;
+                case 11:
+                    player.setCash(player.getCash() + 1000);
+                    break;
+                case 12:
+                case 13:
+                    player.setCash(player.getCash() + 2000);
+                    break;
+                case 14:
+                    player.setCash(player.getCash() + 3999);
+                    player.setNx(player.getNx() + 100);
+                    break;
+                case 15:
+                    player.setNx(player.getNx() + 300);
+                    break;
+                case 16:
+                    for (int i = 0; i < player.getCards().size(); i++) {
+                        // 嫁祸卡
+                        if (player.getCards().get(i).getName().equals("CrossingCard")) {
+                            player.getCards().remove(i);
+                            // 对手减少金钱.
+                            player.getOtherPlayer().setCash(player.getOtherPlayer().getCash() - 3000);
+                            this.textTip.showTextTip(player, player.getName() + "将一笔\"3000元\"嫁祸给 " + player.getOtherPlayer().getName() + "。真是人算不如天算啊.", 6);
+                            this.events.showImg(((News) b).get3000(), 3, new Point(
+                                    420, 160, 0));
+                            new Thread(new MyThread(run, 3)).start();
+                            return;
+                        }
+                    }
+                    player.setCash(player.getCash() - 3000);
+                    break;
+            }
+            // 在事件层显示事件
+            this.events.showImg(((News) b).getImgageEvents()[random], 3, new Point(
+                    420, 160, 0));
+            new Thread(new MyThread(run, 3)).start();
+        }
+
+        private void stopInRandomEvents (Building b, PlayerModel player){
+            int random = (int) (Math.random() * ((News) b).getImgageEvents().length);
+            switch (random) {
+                case 0:
+                    // 设置天数
+                    player.setInHospital(player.getInHospital() + 1);
+                    // 玩家位置切换到医院位置
+                    if (LandModel.hospital != null) {
+                        player.setX(LandModel.hospital.x);
+                        player.setY(LandModel.hospital.y);
+                    }
+                    break;
+                case 1:
+                    // 设置天数
+                    player.setInHospital(player.getInHospital() + 3);
+                    // 玩家位置切换到医院位置
+                    if (LandModel.hospital != null) {
+                        player.setX(LandModel.hospital.x);
+                        player.setY(LandModel.hospital.y);
+                    }
+                    break;
+                case 2:
+                    //雾霾征收环保税
+                    player.setCash(player.getCash() - 1500);
+                    break;
+                case 3:
+                    //发放奖学金
+                    player.setCash(player.getCash() + 2000);
+                    break;
+                case 4:
+                    //发放奖学金
+                    player.setCash(player.getCash() + 2000);
+                    break;
+                default:
+                    break;
+            }
+            // 在事件层显示事件
+            this.events.showImg(((News) b).getImgageEvents()[random], 3, new Point(
+                    420, 160, 0));
+            new Thread(new MyThread(run, 3)).start();
+        }
+
+        /**
+         * 停留在乐透点上
+         */
+        private void stopInLottery (Building b, PlayerModel player){
+            // 未制作
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        /**
+         * 停留在可操作土地
+         */
+        private void stopInTower (Building b, PlayerModel player){
+            List<Building> buildings = player.getBuildings();
+            if (buildings.size() > 0) {
+                int random = (int) (Math.random() * buildings.size());
+                Building tmp = buildings.get(random);
+                String name = tmp.getName();
+                String upName = tmp.getUpName();
+                if (tmp.canUpLevel()) {
+                    tmp.setLevel(tmp.getLevel() + 1);
+                    this.textTip.showTextTip(player, "路过博雅塔，使" + player.getName() + "的"
+                            + name + "升级成" + upName + ". ", 3);
+                    new Thread(new MyThread(run, 3)).start();
+                } else {
+                    this.textTip.showTextTip(player, player.getName() + " 无法升级 "
+                            + name + ". ", 3);
+                    new Thread(new MyThread(run, 3)).start();
+                }
+            } else {
+                this.textTip.showTextTip(player, player.getName() + ((Tower) b).getEvents()[1], 2);
+                new Thread(new MyThread(run, 3)).start();
+            }
+        }
+
+        private void stopInLibrary (Building b, PlayerModel player){
+            this.textTip.showTextTip(player, player.getName() + ((Library) b).getEvents()[0], 2);
+            player.setCash(player.getCash() + 1000);
+            this.run.stayPlayer();
+            new Thread(new MyThread(run, 2)).start();
+        }
+
+        private void stopInHouse (Building b, PlayerModel player){
+            if (b.isPurchasability()) {// 玩家房屋
+                if (b.getOwner() == null) { // 无人房屋
+                    // 执行买房操作
+                    this.buyHouse(b, player);
+                } else {// 有人房屋
+                    if (b.getOwner().equals(player)) {// 自己房屋
+                        // 执行升级房屋操作
+                        this.upHouseLevel(b, player);
+                    } else {// 别人房屋
+                        // 执行交税操作
+                        this.giveTax(b, player);
+                    }
                 }
             }
         }
-    }
 
-    private void goToOrigin(Building b, PlayerModel player) {
-        int choose = JOptionPane.showConfirmDialog(
-                null,
-                "亲爱的:" + player.getName() + "\r\n" + "是否传送至东门？\r\n");
-        if (choose == JOptionPane.OK_OPTION) {
-            if (LandModel.Origin != null) {
-                player.setX(LandModel.Origin.x);
-                player.setY(LandModel.Origin.y);
-                this.textTip.showTextTip(player, player.getName()
-                        + " 传送到了东门. ", 3);
-            } else {
-                this.textTip.showTextTip(player, player.getName()
-                        + " 操作失败. ", 3);
-            }
-        }
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 执行交税操作
-     */
-    private void giveTax(Building b, PlayerModel player) {
-        if (b.getOwner().getInHospital() > 0) {
-            // 增加文本提示
-            this.textTip.showTextTip(player, b.getOwner().getName()
-                    + "正在校医院,免交过路费.", 3);
-        } else if (b.getOwner().getInSecurityDepartment() > 0) {
-            // 增加文本提示
-            this.textTip.showTextTip(player, b.getOwner().getName()
-                    + "正在保卫部,免交过路费.", 3);
-        } else {
-            int revenue = b.getRevenue();
-            // 该玩家减少金币
-            player.setCash(player.getCash() - revenue);
-            // 业主得到金币
-            b.getOwner().setCash(b.getOwner().getCash() + revenue);
-            // 增加文本提示
-            this.textTip.showTextTip(player, player.getName() + "经过"
-                    + b.getOwner().getName() + "的地盘，过路费:" + revenue + "金币.", 3);
-        }
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 执行升级房屋操作
-     */
-    private void upHouseLevel(Building b, PlayerModel player) {
-        if (b.canUpLevel()) {
-            // 升级房屋
-            int price = b.getUpLevelPrice();
-            String name = b.getName();
-            String upName = b.getUpName();
-            int choose = JOptionPane.showConfirmDialog(null,
-                    "亲爱的:" + player.getName() + "\r\n" + "是否升级这块地？\r\n" + name
-                            + "→" + upName + "\r\n" + "价格：" + price + " 金币.");
+        private void goToOrigin (Building b, PlayerModel player){
+            int choose = JOptionPane.showConfirmDialog(
+                    null,
+                    "亲爱的:" + player.getName() + "\r\n" + "是否传送至东门？\r\n");
             if (choose == JOptionPane.OK_OPTION) {
+                if (LandModel.Origin != null) {
+                    player.setX(LandModel.Origin.x);
+                    player.setY(LandModel.Origin.y);
+                    this.textTip.showTextTip(player, player.getName()
+                            + " 传送到了东门. ", 3);
+                } else {
+                    this.textTip.showTextTip(player, player.getName()
+                            + " 操作失败. ", 3);
+                }
+            }
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        /**
+         * 执行交税操作
+         */
+        private void giveTax (Building b, PlayerModel player){
+            if (b.getOwner().getInHospital() > 0) {
+                // 增加文本提示
+                this.textTip.showTextTip(player, b.getOwner().getName()
+                        + "正在校医院,免交过路费.", 3);
+            } else if (b.getOwner().getInSecurityDepartment() > 0) {
+                // 增加文本提示
+                this.textTip.showTextTip(player, b.getOwner().getName()
+                        + "正在保卫部,免交过路费.", 3);
+            } else {
+                int revenue = b.getRevenue();
+                // 该玩家减少金币
+                player.setCash(player.getCash() - revenue);
+                // 业主得到金币
+                b.getOwner().setCash(b.getOwner().getCash() + revenue);
+                // 增加文本提示
+                this.textTip.showTextTip(player, player.getName() + "经过"
+                        + b.getOwner().getName() + "的地盘，过路费:" + revenue + "金币.", 3);
+            }
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        /**
+         * 执行升级房屋操作
+         */
+        private void upHouseLevel (Building b, PlayerModel player){
+            if (b.canUpLevel()) {
+                // 升级房屋
+                int price = b.getUpLevelPrice();
+                String name = b.getName();
+                String upName = b.getUpName();
+                int choose = JOptionPane.showConfirmDialog(null,
+                        "亲爱的:" + player.getName() + "\r\n" + "是否升级这块地？\r\n" + name
+                                + "→" + upName + "\r\n" + "价格：" + price + " 金币.");
+                if (choose == JOptionPane.OK_OPTION) {
+                    if (player.getCash() >= price) {
+                        b.setLevel(b.getLevel() + 1);
+                        // 减少需要的金币
+                        player.setCash(player.getCash() - price);
+                        // 增加文本提示
+                        this.textTip.showTextTip(player, player.getName() + " 从 "
+                                + name + " 升级成 " + upName + ".花费了 " + price
+                                + "金币. ", 3);
+                    } else {
+                        // 增加文本提示
+                        this.textTip.showTextTip(player, player.getName()
+                                + " 金币不足,操作失败. ", 3);
+                    }
+                }
+            }
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        private void buyWestGate (Building b, PlayerModel player){
+            int price = b.getUpLevelPrice();
+            int choose = JOptionPane.showConfirmDialog(
+                    null,
+                    "亲爱的:" + player.getName() + "\r\n" + "是否购买下西门？\r\n"
+                            + "价格：" + price + " 金币.");
+
+            if (choose == JOptionPane.OK_OPTION) {
+                // 购买
                 if (player.getCash() >= price) {
-                    b.setLevel(b.getLevel() + 1);
+                    b.setOwner(player);
+                    b.setLevel(1);
+                    // 将该房屋加入当前玩家的房屋列表下
+                    player.getBuildings().add(b);
                     // 减少需要的金币
                     player.setCash(player.getCash() - price);
-                    // 增加文本提示
-                    this.textTip.showTextTip(player, player.getName() + " 从 "
-                            + name + " 升级成 " + upName + ".花费了 " + price
-                            + "金币. ", 3);
+                    this.textTip.showTextTip(player, player.getName()
+                            + " 买下了西门.花费了: " + price + "金币. ", 3);
                 } else {
-                    // 增加文本提示
                     this.textTip.showTextTip(player, player.getName()
                             + " 金币不足,操作失败. ", 3);
                 }
             }
+            new Thread(new MyThread(run, 1)).start();
         }
-        new Thread(new MyThread(run, 1)).start();
-    }
 
-    private void buyWestGate(Building b, PlayerModel player) {
-        int price = b.getUpLevelPrice();
-        int choose = JOptionPane.showConfirmDialog(
-                null,
-                "亲爱的:" + player.getName() + "\r\n" + "是否购买下西门？\r\n"
-                        + "价格：" + price + " 金币.");
-
-        if (choose == JOptionPane.OK_OPTION) {
-            // 购买
-            if (player.getCash() >= price) {
-                b.setOwner(player);
-                b.setLevel(1);
-                // 将该房屋加入当前玩家的房屋列表下
-                player.getBuildings().add(b);
-                // 减少需要的金币
-                player.setCash(player.getCash() - price);
-                this.textTip.showTextTip(player, player.getName()
-                        + " 买下了西门.花费了: " + price + "金币. ", 3);
-            } else {
-                this.textTip.showTextTip(player, player.getName()
-                        + " 金币不足,操作失败. ", 3);
-            }
-        }
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 执行买房操作
-     */
-    private void buyHouse(Building b, PlayerModel player) {
-        int price = b.getUpLevelPrice();
-        int choose = JOptionPane.showConfirmDialog(
-                null,
-                "亲爱的:" + player.getName() + "\r\n" + "是否购买下这块地？\r\n"
-                        + b.getName() + "→" + b.getUpName() + "\r\n" + "价格："
-                        + price + " 金币.");
-        if (choose == JOptionPane.OK_OPTION) {
-            // 购买
-            if (player.getCash() >= price) {
-                b.setOwner(player);
-                b.setLevel(1);
-                // 将该房屋加入当前玩家的房屋列表下
-                player.getBuildings().add(b);
-                // 减少需要的金币
-                player.setCash(player.getCash() - price);
-                this.textTip.showTextTip(player, player.getName()
-                        + " 买下了一块空地.花费了: " + price + "金币. ", 3);
-            } else {
-                this.textTip.showTextTip(player, player.getName()
-                        + " 金币不足,操作失败. ", 3);
-            }
-        }
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 停留在医院
-     */
-    private void stopInHospital(Building b, PlayerModel player) {
-        int days = (int) (Math.random() * 4) + 2;
-        player.setInHospital(days);
-        int random = (int) (Math.random() * ((Hospital) b).getEvents().length);
-        String text = ((Hospital) b).getEvents()[random];
-        this.textTip.showTextTip(player, player.getName() + text + "停留"
-                + (days - 1) + "天.", 3);
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 卡片效果作用
-     */
-    public void cardsBuff() {
-        List<Card> delete = new ArrayList<Card>();
-        for (Card a : this.run.getNowPlayer().getEffectCards()) {
-            int buff = a.cardBuff();
-            cardBuff(a, buff, delete);
-        }
-        this.run.getNowPlayer().getEffectCards().removeAll(delete);
-        this.run.nextState();
-    }
-
-    /**
-     * 卡片效果持续
-     */
-    private void cardBuff(Card card, int buff, List<Card> delete) {
-        switch (buff) {
-            case GameState.CARD_BUFF_TORTOISE:
-                // 乌龟卡BUff
-                buffTortoiseCard((TortoiseCard) card, delete);
-                break;
-            case GameState.CARD_BUFF_STOP:
-                // 停留卡Buff
-                buffStopCard(card, delete);
-                break;
-        }
-    }
-
-    /**
-     * 停留卡Buff
-     */
-    private void buffStopCard(Card card, List<Card> delete) {
-        // 增加文本提示
-        this.textTip.showTextTip(card.geteOwner(), card.geteOwner().getName()
-                + " 受\"停留卡\" 作用，不能移动.. ", 2);
-        // 移除卡片
-        delete.add(card);
-        this.run.nextState();
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 乌龟卡BUff
-     */
-    private void buffTortoiseCard(TortoiseCard card, List<Card> delete) {
-        if (card.getLife() <= 0) {
-            delete.add(card);
-            return;
-        } else {
-            card.setLife(card.getLife() - 1);
-        }
-        this.textTip.showTextTip(card.geteOwner(), card.geteOwner().getName()
-                + " 受\"乌龟卡\" 作用，只能移动一步.. ", 2);
-        this.run.setPoint(0);
-    }
-
-    /**
-     * 使用卡片
-     */
-    public void useCards() {
-        PlayerModel p = this.run.getNowPlayer();
-        while (true) {
-            if (p.getCards().size() == 0) {
-                // 无卡片，跳过阶段
-                this.run.nextState();
-                break;
-            } else {
-                Object[] options = new Object[p.getCards().size() + 1];
-                int i;
-                for (i = 0; i < p.getCards().size(); i++) {
-                    options[i] = p.getCards().get(i).getcName() + "\r\n";
-                }
-                options[i] = "跳过,不使用";
-                int response = JOptionPane.showOptionDialog(null,
-                        " " + p.getName() + "，选择需要使用的卡片", "卡片使用阶段.",
-                        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        null, options, options[0]);
-                if (response != i && response != -1) {
-                    // 获得卡片
-                    int th = p.getCards().get(response).useCard();
-                    // 使用卡片
-                    useCard(p.getCards().get(response), th);
+        /**
+         * 执行买房操作
+         */
+        private void buyHouse (Building b, PlayerModel player){
+            int price = b.getUpLevelPrice();
+            int choose = JOptionPane.showConfirmDialog(
+                    null,
+                    "亲爱的:" + player.getName() + "\r\n" + "是否购买下这块地？\r\n"
+                            + b.getName() + "→" + b.getUpName() + "\r\n" + "价格："
+                            + price + " 金币.");
+            if (choose == JOptionPane.OK_OPTION) {
+                // 购买
+                if (player.getCash() >= price) {
+                    b.setOwner(player);
+                    b.setLevel(1);
+                    // 将该房屋加入当前玩家的房屋列表下
+                    player.getBuildings().add(b);
+                    // 减少需要的金币
+                    player.setCash(player.getCash() - price);
+                    this.textTip.showTextTip(player, player.getName()
+                            + " 买下了一块空地.花费了: " + price + "金币. ", 3);
                 } else {
-                    // 不使用，跳过阶段.
+                    this.textTip.showTextTip(player, player.getName()
+                            + " 金币不足,操作失败. ", 3);
+                }
+            }
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        /**
+         * 停留在医院
+         */
+        private void stopInHospital (Building b, PlayerModel player){
+            int days = (int) (Math.random() * 4) + 2;
+            player.setInHospital(days);
+            int random = (int) (Math.random() * ((Hospital) b).getEvents().length);
+            String text = ((Hospital) b).getEvents()[random];
+            this.textTip.showTextTip(player, player.getName() + text + "停留"
+                    + (days - 1) + "天.", 3);
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        /**
+         * 卡片效果作用
+         */
+        public void cardsBuff () {
+            List<Card> delete = new ArrayList<Card>();
+            for (Card a : this.run.getNowPlayer().getEffectCards()) {
+                int buff = a.cardBuff();
+                cardBuff(a, buff, delete);
+            }
+            this.run.getNowPlayer().getEffectCards().removeAll(delete);
+            this.run.nextState();
+        }
+
+        /**
+         * 卡片效果持续
+         */
+        private void cardBuff (Card card,int buff, List<Card > delete){
+            switch (buff) {
+                case GameState.CARD_BUFF_TORTOISE:
+                    // 乌龟卡BUff
+                    buffTortoiseCard((TortoiseCard) card, delete);
+                    break;
+                case GameState.CARD_BUFF_STOP:
+                    // 停留卡Buff
+                    buffStopCard(card, delete);
+                    break;
+            }
+        }
+
+        /**
+         * 停留卡Buff
+         */
+        private void buffStopCard (Card card, List < Card > delete){
+            // 增加文本提示
+            this.textTip.showTextTip(card.geteOwner(), card.geteOwner().getName()
+                    + " 受\"停留卡\" 作用，不能移动.. ", 2);
+            // 移除卡片
+            delete.add(card);
+            this.run.nextState();
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        /**
+         * 乌龟卡BUff
+         */
+        private void buffTortoiseCard (TortoiseCard card, List < Card > delete){
+            if (card.getLife() <= 0) {
+                delete.add(card);
+                return;
+            } else {
+                card.setLife(card.getLife() - 1);
+            }
+            this.textTip.showTextTip(card.geteOwner(), card.geteOwner().getName()
+                    + " 受\"乌龟卡\" 作用，只能移动一步.. ", 2);
+            this.run.setPoint(0);
+        }
+
+        /**
+         * 使用卡片
+         */
+        public void useCards () {
+            PlayerModel p = this.run.getNowPlayer();
+            while (true) {
+                if (p.getCards().size() == 0) {
+                    // 无卡片，跳过阶段
                     this.run.nextState();
                     break;
-                }
-            }
-        }
-    }
-
-    /**
-     * 使用卡片
-     */
-    private void useCard(Card card, int th) {
-        switch (th) {
-            case GameState.CARD_ADDLEVEL:
-                // 使用加盖卡
-                useAddLevelCard(card);
-                break;
-            case GameState.CARD_AVERAGERPOOR:
-                // 使用均贫卡
-                useAveragerPoorCard(card);
-                break;
-            case GameState.CARD_CHANGE:
-                // 使用换屋卡
-                useChangeCard(card);
-                break;
-            case GameState.CARD_CONTROLDICE:
-                // 使用遥控骰子卡
-                useControlDiceCard(card);
-                break;
-            case GameState.CARD_HAVE:
-                // 使用购地卡
-                useHaveCard(card);
-                break;
-            case GameState.CARD_REDUCELEVEL:
-                // 使用降级卡
-                useReduceLevelCard(card);
-                break;
-            case GameState.CARD_ROB:
-                // 使用抢夺卡
-                useRobCard(card);
-                break;
-            case GameState.CARD_STOP:
-                // 使用停留卡
-                useStopCard(card);
-                break;
-            case GameState.CARD_TALLAGE:
-                // 使用查税卡
-                useTallageCard(card);
-                break;
-            case GameState.CARD_TORTOISE:
-                // 使用乌龟卡
-                useTortoiseCard(card);
-                break;
-            case GameState.CARD_TRAP:
-                // 使用陷害卡
-                useTrapCard(card);
-                break;
-            case GameState.CARD_CROSSING:
-                // 使用嫁祸卡
-                useCrossingCard(card);
-                break;
-        }
-    }
-
-    /**
-     * 使用嫁祸卡
-     */
-    private void useCrossingCard(Card card) {
-        Object[] options1 = {"重新选择"};
-        JOptionPane.showOptionDialog(null, " 嫁祸卡在大事件发生时会自动使用.",
-                "卡片使用阶段.", JOptionPane.YES_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, options1,
-                options1[0]);
-    }
-
-    /**
-     * 使用陷害卡
-     */
-    private void useTrapCard(Card card) {
-        Object[] options = {"确认使用", "重新选择"};
-        int response = JOptionPane.showOptionDialog(null, "确认使用\"陷害卡\"将 \""
-                        + card.getOwner().getOtherPlayer().getName() + "\"入狱2天?",
-                "卡片使用阶段.", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
-                null, options, options[0]);
-        if (response == 0) {
-            // 使用
-            PlayerModel cPlayer = card.getOwner().getOtherPlayer();
-            // 设置天数
-            cPlayer.setInSecurityDepartment(cPlayer.getInSecurityDepartment() + 2);
-            // 玩家位置切换到医院位置
-            if (LandModel.SecurityDepartment != null) {
-                cPlayer.setX(LandModel.SecurityDepartment.x);
-                cPlayer.setY(LandModel.SecurityDepartment.y);
-            }
-            // 增加文本提示
-            this.textTip
-                    .showTextTip(card.getOwner(), card.getOwner().getName()
-                            + " 使用了 \"陷害卡\"，将 \""
-                            + card.getOwner().getOtherPlayer().getName()
-                            + "\"入狱2天.", 2);
-            // 　减去卡片
-            card.getOwner().getCards().remove(card);
-        }
-    }
-
-    /**
-     * 使用乌龟卡
-     */
-    private void useTortoiseCard(Card card) {
-        Object[] options = {card.getOwner().getName(),
-                card.getOwner().getOtherPlayer().getName(), "重新选择"};
-        int response = JOptionPane.showOptionDialog(null,
-                " 请选择目标玩家，对其打出\"乌龟卡\".", "卡片使用阶段.", JOptionPane.YES_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if (response == 0) {
-            card.getOwner().getEffectCards().add(card);
-            card.seteOwner(card.getOwner());
-            // 增加文本提示
-            this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
-                    + " 对自己使用了\"乌龟卡\". ", 2);
-            card.getOwner().getCards().remove(card);
-        } else if (response == 1) {
-            card.getOwner().getOtherPlayer().getEffectCards().add(card);
-            card.seteOwner(card.getOwner().getOtherPlayer());
-            this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
-                    + " 对\"" + card.getOwner().getOtherPlayer().getName()
-                    + "\"使用了\"乌龟卡\". ", 2);
-            card.getOwner().getCards().remove(card);
-        }
-    }
-
-    /**
-     * 使用查税卡
-     */
-    private void useTallageCard(Card card) {
-        Object[] options = {"确认使用", "重新选择"};
-        int response = JOptionPane.showOptionDialog(null, "确认使用\"查税卡\"从 \""
-                        + card.getOwner().getOtherPlayer().getName() + "\"手中获得 10%税款?",
-                "卡片使用阶段.", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
-                null, options, options[0]);
-        if (response == 0) {
-            // 使用
-            int money = (int) (card.getOwner().getOtherPlayer().getCash() / 10);
-            card.getOwner().setCash(card.getOwner().getCash() + money);
-            card.getOwner()
-                    .getOtherPlayer()
-                    .setCash(card.getOwner().getOtherPlayer().getCash() - money);
-            // 增加文本提示
-            this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
-                    + " 使用了 \"查税卡\"，从 \""
-                    + card.getOwner().getOtherPlayer().getName()
-                    + "\"手中获得 10%税款", 2);
-            // 　减去卡片
-            card.getOwner().getCards().remove(card);
-        }
-    }
-
-    /**
-     * 使用停留卡
-     */
-    private void useStopCard(Card card) {
-        Object[] options = {card.getOwner().getName(),
-                card.getOwner().getOtherPlayer().getName(), "重新选择"};
-        int response = JOptionPane.showOptionDialog(null,
-                " 请选择目标玩家，对其打出\"停留卡\".", "卡片使用阶段.", JOptionPane.YES_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if (response == 0) {
-            card.getOwner().getEffectCards().add(card);
-            card.seteOwner(card.getOwner());
-            // 增加文本提示
-            this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
-                    + " 对自己使用了\"停留卡\". ", 2);
-            card.getOwner().getCards().remove(card);
-        } else if (response == 1) {
-            card.getOwner().getOtherPlayer().getEffectCards().add(card);
-            card.seteOwner(card.getOwner().getOtherPlayer());
-            this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
-                    + " 对\"" + card.getOwner().getOtherPlayer().getName()
-                    + "\"使用了\"停留卡\". ", 2);
-            card.getOwner().getCards().remove(card);
-        }
-    }
-
-    /**
-     * 使用抢夺卡
-     */
-    private void useRobCard(Card card) {
-        if (card.getOwner().getCards().size() >= PlayerModel.MAX_CAN_HOLD_CARDS) {
-            // 无法使用
-            Object[] options = {"重新选择"};
-            JOptionPane.showOptionDialog(null, " 您的卡片数量已经达到上限，无法使用\"抢夺卡\"",
-                    "卡片使用阶段.", JOptionPane.YES_OPTION,
-                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        } else if (card.getOwner().getOtherPlayer().getCards().size() == 0) {
-            // 无法使用
-            Object[] options = {"重新选择"};
-            JOptionPane.showOptionDialog(null, " \""
-                            + card.getOwner().getOtherPlayer().getName()
-                            + "\"没有卡片，无法使用\"抢夺卡\"", "卡片使用阶段.", JOptionPane.YES_OPTION,
-                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        } else {
-            PlayerModel srcPlayer = card.getOwner().getOtherPlayer();
-            // 随机选取一张
-//			System.out.println(srcPlayer.getCards().size() + "zhang");
-            Card getCard = srcPlayer.getCards().get((int) (srcPlayer.getCards().size() * Math.random()));
-            // 对手丧失卡片
-            srcPlayer.getCards().remove(getCard);
-            // 卡片拥有者获得
-            card.getOwner().getCards().add(getCard);
-            // 更改获得卡片拥有者
-            getCard.setOwner(card.getOwner());
-            // 增加文本提示
-            this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
-                    + " 使用了 \"抢夺卡\"，抢夺了 \"" + srcPlayer.getName() + "\"的一张\""
-                    + getCard.getcName() + ".\". ", 2);
-            // 　减去卡片
-            card.getOwner().getCards().remove(card);
-        }
-    }
-
-    /**
-     * 使用降级卡
-     */
-    private void useReduceLevelCard(Card card) {
-        Building building = this.building.getBuilding(
-                card.getOwner().getY() / 60, card.getOwner().getX() / 60);
-        if (building.getOwner() != null
-                && building.getOwner().equals(card.getOwner().getOtherPlayer())) {// 是对手的房屋
-            if (building.getLevel() > 0) { // 可以降级
-                // 降级
-                building.setLevel(building.getLevel() - 1);
-                // 增加文本提示
-                this.textTip.showTextTip(card.getOwner(), card.getOwner()
-                        .getName()
-                        + " 使用了 \"降级卡\"，将\""
-                        + card.getOwner().getOtherPlayer().getName()
-                        + "\"的房屋等级降低一级. ", 2);
-                // 　减去卡片
-                card.getOwner().getCards().remove(card);
-            } else {
-                // 无法使用,不可降级
-                Object[] options = {"重新选择"};
-                JOptionPane.showOptionDialog(null, " 当前房屋不可降级", "卡片使用阶段.",
-                        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        null, options, options[0]);
-            }
-        } else {
-            // 无法使用.
-            Object[] options = {"重新选择"};
-            JOptionPane.showOptionDialog(null, " 当前房屋不能使用该卡片.", "卡片使用阶段.",
-                    JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                    options, options[0]);
-        }
-    }
-
-    /**
-     * 使用购地卡
-     */
-    private void useHaveCard(Card card) {
-        // 该地点房屋
-        Building building = this.building.getBuilding(
-                card.getOwner().getY() / 60, card.getOwner().getX() / 60);
-        if (building.getOwner() != null
-                && building.getOwner().equals(card.getOwner().getOtherPlayer())) {// 是对方的房屋
-            Object[] options = {"确认使用", "重新选择"};
-            int response = JOptionPane.showOptionDialog(null,
-                    "确认使用\"购地卡\"将此地收购？需要花费：" + building.getAllPrice() + " 金币.",
-                    "卡片使用阶段.", JOptionPane.YES_OPTION,
-                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-            if (response == 0) {
-                if (card.getOwner().getCash() >= building.getAllPrice()) {
-                    // 金币交换
-                    building.getOwner().setCash(
-                            building.getOwner().getCash()
-                                    + building.getAllPrice());
-                    card.getOwner().setCash(
-                            card.getOwner().getCash() - building.getAllPrice());
-                    building.setOwner(card.getOwner());
-                    // 增加文本提示
-                    this.textTip.showTextTip(card.getOwner(), card.getOwner()
-                            .getName() + " 使用了 \"购地卡\"，收购获得了该土地. ", 2);
-                    // 　减去卡片
-                    card.getOwner().getCards().remove(card);
                 } else {
-                    Object[] options1 = {"重新选择"};
-                    JOptionPane.showOptionDialog(null, " 金币不足，无法购买房屋!",
-                            "卡片使用阶段.", JOptionPane.YES_OPTION,
-                            JOptionPane.PLAIN_MESSAGE, null, options1,
-                            options1[0]);
-                }
-            }
-        } else {
-            Object[] options1 = {"重新选择"};
-            JOptionPane.showOptionDialog(null, "此房屋无法使用该卡片.", "卡片使用阶段.",
-                    JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                    options1, options1[0]);
-        }
-    }
-
-    /**
-     * 使用遥控骰子卡
-     */
-    private void useControlDiceCard(Card card) {
-        Object[] options = {"1点", "2点", "3点", "4点", "5点", "6点", "重新选择"};
-        int response = JOptionPane.showOptionDialog(null,
-                "确认使用\"遥控骰子卡\"遥控骰子点数?", "卡片使用阶段.", JOptionPane.YES_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if (response == -1 || response == 6) {
-            return;
-        } else {
-            // 使用
-            this.run.setPoint(response);
-            // 增加文本提示
-            this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
-                    + " 使用了 \"遥控骰子卡\".", 2);
-            // 　减去卡片
-            card.getOwner().getCards().remove(card);
-        }
-    }
-
-    /**
-     * 使用换屋卡
-     */
-    private void useChangeCard(Card card) {
-        Building building = this.building.getBuilding(
-                card.getOwner().getY() / 60, card.getOwner().getX() / 60);
-        if (building.getOwner() != null
-                && building.getOwner().equals(card.getOwner().getOtherPlayer())) {// 是对手房屋
-            Object[] options = {"确认使用", "重新选择"};
-            int response = JOptionPane.showOptionDialog(null,
-                    "确认使用\"换屋卡\"与对手交换一块同类型的房屋（随机）", "卡片使用阶段.",
-                    JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                    options, options[0]);
-            if (response == 0) {
-                // 找寻相等级别房屋
-                int thisBuildingLevel = building.getLevel();
-                Building changeBuilding = null;
-                for (Building a : card.getOwner().getBuildings()) {
-                    if (a.getLevel() == thisBuildingLevel) {
-                        changeBuilding = a;
+                    Object[] options = new Object[p.getCards().size() + 1];
+                    int i;
+                    for (i = 0; i < p.getCards().size(); i++) {
+                        options[i] = p.getCards().get(i).getcName() + "\r\n";
+                    }
+                    options[i] = "跳过,不使用";
+                    int response = JOptionPane.showOptionDialog(null,
+                            " " + p.getName() + "，选择需要使用的卡片", "卡片使用阶段.",
+                            JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                    if (response != i && response != -1) {
+                        // 获得卡片
+                        int th = p.getCards().get(response).useCard();
+                        // 使用卡片
+                        useCard(p.getCards().get(response), th);
+                    } else {
+                        // 不使用，跳过阶段.
+                        this.run.nextState();
                         break;
                     }
                 }
-                // 找到同类型房屋
-                if (changeBuilding != null) {
-                    changeBuilding.setOwner(card.getOwner().getOtherPlayer());
-                    building.setOwner(card.getOwner());
+            }
+        }
+
+        /**
+         * 使用卡片
+         */
+        private void useCard (Card card,int th){
+            switch (th) {
+                case GameState.CARD_ADDLEVEL:
+                    // 使用加盖卡
+                    useAddLevelCard(card);
+                    break;
+                case GameState.CARD_AVERAGERPOOR:
+                    // 使用均贫卡
+                    useAveragerPoorCard(card);
+                    break;
+                case GameState.CARD_CHANGE:
+                    // 使用换屋卡
+                    useChangeCard(card);
+                    break;
+                case GameState.CARD_CONTROLDICE:
+                    // 使用遥控骰子卡
+                    useControlDiceCard(card);
+                    break;
+                case GameState.CARD_HAVE:
+                    // 使用购地卡
+                    useHaveCard(card);
+                    break;
+                case GameState.CARD_REDUCELEVEL:
+                    // 使用降级卡
+                    useReduceLevelCard(card);
+                    break;
+                case GameState.CARD_ROB:
+                    // 使用抢夺卡
+                    useRobCard(card);
+                    break;
+                case GameState.CARD_STOP:
+                    // 使用停留卡
+                    useStopCard(card);
+                    break;
+                case GameState.CARD_TALLAGE:
+                    // 使用查税卡
+                    useTallageCard(card);
+                    break;
+                case GameState.CARD_TORTOISE:
+                    // 使用乌龟卡
+                    useTortoiseCard(card);
+                    break;
+                case GameState.CARD_TRAP:
+                    // 使用陷害卡
+                    useTrapCard(card);
+                    break;
+                case GameState.CARD_CROSSING:
+                    // 使用嫁祸卡
+                    useCrossingCard(card);
+                    break;
+            }
+        }
+
+        /**
+         * 使用嫁祸卡
+         */
+        private void useCrossingCard (Card card){
+            Object[] options1 = {"重新选择"};
+            JOptionPane.showOptionDialog(null, " 嫁祸卡在大事件发生时会自动使用.",
+                    "卡片使用阶段.", JOptionPane.YES_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, null, options1,
+                    options1[0]);
+        }
+
+        /**
+         * 使用陷害卡
+         */
+        private void useTrapCard (Card card){
+            Object[] options = {"确认使用", "重新选择"};
+            int response = JOptionPane.showOptionDialog(null, "确认使用\"陷害卡\"将 \""
+                            + card.getOwner().getOtherPlayer().getName() + "\"入狱2天?",
+                    "卡片使用阶段.", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+            if (response == 0) {
+                // 使用
+                PlayerModel cPlayer = card.getOwner().getOtherPlayer();
+                // 设置天数
+                cPlayer.setInSecurityDepartment(cPlayer.getInSecurityDepartment() + 2);
+                // 玩家位置切换到医院位置
+                if (LandModel.SecurityDepartment != null) {
+                    cPlayer.setX(LandModel.SecurityDepartment.x);
+                    cPlayer.setY(LandModel.SecurityDepartment.y);
+                }
+                // 增加文本提示
+                this.textTip
+                        .showTextTip(card.getOwner(), card.getOwner().getName()
+                                + " 使用了 \"陷害卡\"，将 \""
+                                + card.getOwner().getOtherPlayer().getName()
+                                + "\"入狱2天.", 2);
+                // 　减去卡片
+                card.getOwner().getCards().remove(card);
+            }
+        }
+
+        /**
+         * 使用乌龟卡
+         */
+        private void useTortoiseCard (Card card){
+            Object[] options = {card.getOwner().getName(),
+                    card.getOwner().getOtherPlayer().getName(), "重新选择"};
+            int response = JOptionPane.showOptionDialog(null,
+                    " 请选择目标玩家，对其打出\"乌龟卡\".", "卡片使用阶段.", JOptionPane.YES_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            if (response == 0) {
+                card.getOwner().getEffectCards().add(card);
+                card.seteOwner(card.getOwner());
+                // 增加文本提示
+                this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
+                        + " 对自己使用了\"乌龟卡\". ", 2);
+                card.getOwner().getCards().remove(card);
+            } else if (response == 1) {
+                card.getOwner().getOtherPlayer().getEffectCards().add(card);
+                card.seteOwner(card.getOwner().getOtherPlayer());
+                this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
+                        + " 对\"" + card.getOwner().getOtherPlayer().getName()
+                        + "\"使用了\"乌龟卡\". ", 2);
+                card.getOwner().getCards().remove(card);
+            }
+        }
+
+        /**
+         * 使用查税卡
+         */
+        private void useTallageCard (Card card){
+            Object[] options = {"确认使用", "重新选择"};
+            int response = JOptionPane.showOptionDialog(null, "确认使用\"查税卡\"从 \""
+                            + card.getOwner().getOtherPlayer().getName() + "\"手中获得 10%税款?",
+                    "卡片使用阶段.", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+            if (response == 0) {
+                // 使用
+                int money = (int) (card.getOwner().getOtherPlayer().getCash() / 10);
+                card.getOwner().setCash(card.getOwner().getCash() + money);
+                card.getOwner()
+                        .getOtherPlayer()
+                        .setCash(card.getOwner().getOtherPlayer().getCash() - money);
+                // 增加文本提示
+                this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
+                        + " 使用了 \"查税卡\"，从 \""
+                        + card.getOwner().getOtherPlayer().getName()
+                        + "\"手中获得 10%税款", 2);
+                // 　减去卡片
+                card.getOwner().getCards().remove(card);
+            }
+        }
+
+        /**
+         * 使用停留卡
+         */
+        private void useStopCard (Card card){
+            Object[] options = {card.getOwner().getName(),
+                    card.getOwner().getOtherPlayer().getName(), "重新选择"};
+            int response = JOptionPane.showOptionDialog(null,
+                    " 请选择目标玩家，对其打出\"停留卡\".", "卡片使用阶段.", JOptionPane.YES_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            if (response == 0) {
+                card.getOwner().getEffectCards().add(card);
+                card.seteOwner(card.getOwner());
+                // 增加文本提示
+                this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
+                        + " 对自己使用了\"停留卡\". ", 2);
+                card.getOwner().getCards().remove(card);
+            } else if (response == 1) {
+                card.getOwner().getOtherPlayer().getEffectCards().add(card);
+                card.seteOwner(card.getOwner().getOtherPlayer());
+                this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
+                        + " 对\"" + card.getOwner().getOtherPlayer().getName()
+                        + "\"使用了\"停留卡\". ", 2);
+                card.getOwner().getCards().remove(card);
+            }
+        }
+
+        /**
+         * 使用抢夺卡
+         */
+        private void useRobCard (Card card){
+            if (card.getOwner().getCards().size() >= PlayerModel.MAX_CAN_HOLD_CARDS) {
+                // 无法使用
+                Object[] options = {"重新选择"};
+                JOptionPane.showOptionDialog(null, " 您的卡片数量已经达到上限，无法使用\"抢夺卡\"",
+                        "卡片使用阶段.", JOptionPane.YES_OPTION,
+                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            } else if (card.getOwner().getOtherPlayer().getCards().size() == 0) {
+                // 无法使用
+                Object[] options = {"重新选择"};
+                JOptionPane.showOptionDialog(null, " \""
+                                + card.getOwner().getOtherPlayer().getName()
+                                + "\"没有卡片，无法使用\"抢夺卡\"", "卡片使用阶段.", JOptionPane.YES_OPTION,
+                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            } else {
+                PlayerModel srcPlayer = card.getOwner().getOtherPlayer();
+                // 随机选取一张
+//			System.out.println(srcPlayer.getCards().size() + "zhang");
+                Card getCard = srcPlayer.getCards().get((int) (srcPlayer.getCards().size() * Math.random()));
+                // 对手丧失卡片
+                srcPlayer.getCards().remove(getCard);
+                // 卡片拥有者获得
+                card.getOwner().getCards().add(getCard);
+                // 更改获得卡片拥有者
+                getCard.setOwner(card.getOwner());
+                // 增加文本提示
+                this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
+                        + " 使用了 \"抢夺卡\"，抢夺了 \"" + srcPlayer.getName() + "\"的一张\""
+                        + getCard.getcName() + ".\". ", 2);
+                // 　减去卡片
+                card.getOwner().getCards().remove(card);
+            }
+        }
+
+        /**
+         * 使用降级卡
+         */
+        private void useReduceLevelCard (Card card){
+            Building building = this.building.getBuilding(
+                    card.getOwner().getY() / 60, card.getOwner().getX() / 60);
+            if (building.getOwner() != null
+                    && building.getOwner().equals(card.getOwner().getOtherPlayer())) {// 是对手的房屋
+                if (building.getLevel() > 0) { // 可以降级
+                    // 降级
+                    building.setLevel(building.getLevel() - 1);
                     // 增加文本提示
                     this.textTip.showTextTip(card.getOwner(), card.getOwner()
                             .getName()
-                            + " 使用了 \"换屋卡\"，将某处房屋与"
+                            + " 使用了 \"降级卡\"，将\""
                             + card.getOwner().getOtherPlayer().getName()
-                            + "该地的房屋进行交换.. ", 2);
+                            + "\"的房屋等级降低一级. ", 2);
                     // 　减去卡片
                     card.getOwner().getCards().remove(card);
                 } else {
-                    Object[] options1 = {"重新选择"};
-                    JOptionPane.showOptionDialog(null, " 当前房屋不可使用\"换屋卡\"",
-                            "卡片使用阶段.", JOptionPane.YES_OPTION,
-                            JOptionPane.PLAIN_MESSAGE, null, options1,
-                            options1[0]);
+                    // 无法使用,不可降级
+                    Object[] options = {"重新选择"};
+                    JOptionPane.showOptionDialog(null, " 当前房屋不可降级", "卡片使用阶段.",
+                            JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
                 }
+            } else {
+                // 无法使用.
+                Object[] options = {"重新选择"};
+                JOptionPane.showOptionDialog(null, " 当前房屋不能使用该卡片.", "卡片使用阶段.",
+                        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                        options, options[0]);
             }
-        } else {
-            Object[] options = {"重新选择"};
-            JOptionPane.showOptionDialog(null, " 当前房屋不可使用\"换屋卡\"", "卡片使用阶段.",
-                    JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                    options, options[0]);
         }
-    }
 
-    /**
-     * 使用均贫卡
-     */
-    private void useAveragerPoorCard(Card card) {
-        Object[] options = {"确认使用", "重新选择"};
-        int response = JOptionPane.showOptionDialog(null,
-                "确认使用\"均贫卡\"与对手平分现金?", "卡片使用阶段.", JOptionPane.YES_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if (response == 0) {
-            // 使用
-            int money = (int) (card.getOwner().getCash() + card.getOwner()
-                    .getOtherPlayer().getCash()) / 2;
-            card.getOwner().setCash(money);
-            card.getOwner().getOtherPlayer().setCash(money);
-            // 增加文本提示
-            this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
-                    + " 使用了 \"均贫卡\"，与对手平分了现金,现在双方现金数为:" + money + " 金币. ", 2);
-
-            // 　减去卡片
-            card.getOwner().getCards().remove(card);
+        /**
+         * 使用购地卡
+         */
+        private void useHaveCard (Card card){
+            // 该地点房屋
+            Building building = this.building.getBuilding(
+                    card.getOwner().getY() / 60, card.getOwner().getX() / 60);
+            if (building.getOwner() != null
+                    && building.getOwner().equals(card.getOwner().getOtherPlayer())) {// 是对方的房屋
+                Object[] options = {"确认使用", "重新选择"};
+                int response = JOptionPane.showOptionDialog(null,
+                        "确认使用\"购地卡\"将此地收购？需要花费：" + building.getAllPrice() + " 金币.",
+                        "卡片使用阶段.", JOptionPane.YES_OPTION,
+                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                if (response == 0) {
+                    if (card.getOwner().getCash() >= building.getAllPrice()) {
+                        // 金币交换
+                        building.getOwner().setCash(
+                                building.getOwner().getCash()
+                                        + building.getAllPrice());
+                        card.getOwner().setCash(
+                                card.getOwner().getCash() - building.getAllPrice());
+                        building.setOwner(card.getOwner());
+                        // 增加文本提示
+                        this.textTip.showTextTip(card.getOwner(), card.getOwner()
+                                .getName() + " 使用了 \"购地卡\"，收购获得了该土地. ", 2);
+                        // 　减去卡片
+                        card.getOwner().getCards().remove(card);
+                    } else {
+                        Object[] options1 = {"重新选择"};
+                        JOptionPane.showOptionDialog(null, " 金币不足，无法购买房屋!",
+                                "卡片使用阶段.", JOptionPane.YES_OPTION,
+                                JOptionPane.PLAIN_MESSAGE, null, options1,
+                                options1[0]);
+                    }
+                }
+            } else {
+                Object[] options1 = {"重新选择"};
+                JOptionPane.showOptionDialog(null, "此房屋无法使用该卡片.", "卡片使用阶段.",
+                        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                        options1, options1[0]);
+            }
         }
-    }
 
-    /**
-     * 使用加盖卡
-     */
-
-    private void useAddLevelCard(Card card) {
-        Building building = this.building.getBuilding(
-                card.getOwner().getY() / 60, card.getOwner().getX() / 60);
-        if (building.getOwner() != null
-                && building.getOwner().equals(card.getOwner())) {// 是自己的房屋
-            if (building.canUpLevel()) { // 可升级
-                // 升级
-                building.setLevel(building.getLevel() + 1);
+        /**
+         * 使用遥控骰子卡
+         */
+        private void useControlDiceCard (Card card){
+            Object[] options = {"1点", "2点", "3点", "4点", "5点", "6点", "重新选择"};
+            int response = JOptionPane.showOptionDialog(null,
+                    "确认使用\"遥控骰子卡\"遥控骰子点数?", "卡片使用阶段.", JOptionPane.YES_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            if (response == -1 || response == 6) {
+                return;
+            } else {
+                // 使用
+                this.run.setPoint(response);
                 // 增加文本提示
-                this.textTip.showTextTip(card.getOwner(), card.getOwner()
-                        .getName() + " 使用了 \"加盖卡\"，将房屋等级提升一级. ", 2);
+                this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
+                        + " 使用了 \"遥控骰子卡\".", 2);
                 // 　减去卡片
                 card.getOwner().getCards().remove(card);
+            }
+        }
+
+        /**
+         * 使用换屋卡
+         */
+        private void useChangeCard (Card card){
+            Building building = this.building.getBuilding(
+                    card.getOwner().getY() / 60, card.getOwner().getX() / 60);
+            if (building.getOwner() != null
+                    && building.getOwner().equals(card.getOwner().getOtherPlayer())) {// 是对手房屋
+                Object[] options = {"确认使用", "重新选择"};
+                int response = JOptionPane.showOptionDialog(null,
+                        "确认使用\"换屋卡\"与对手交换一块同类型的房屋（随机）", "卡片使用阶段.",
+                        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                        options, options[0]);
+                if (response == 0) {
+                    // 找寻相等级别房屋
+                    int thisBuildingLevel = building.getLevel();
+                    Building changeBuilding = null;
+                    for (Building a : card.getOwner().getBuildings()) {
+                        if (a.getLevel() == thisBuildingLevel) {
+                            changeBuilding = a;
+                            break;
+                        }
+                    }
+                    // 找到同类型房屋
+                    if (changeBuilding != null) {
+                        changeBuilding.setOwner(card.getOwner().getOtherPlayer());
+                        building.setOwner(card.getOwner());
+                        // 增加文本提示
+                        this.textTip.showTextTip(card.getOwner(), card.getOwner()
+                                .getName()
+                                + " 使用了 \"换屋卡\"，将某处房屋与"
+                                + card.getOwner().getOtherPlayer().getName()
+                                + "该地的房屋进行交换.. ", 2);
+                        // 　减去卡片
+                        card.getOwner().getCards().remove(card);
+                    } else {
+                        Object[] options1 = {"重新选择"};
+                        JOptionPane.showOptionDialog(null, " 当前房屋不可使用\"换屋卡\"",
+                                "卡片使用阶段.", JOptionPane.YES_OPTION,
+                                JOptionPane.PLAIN_MESSAGE, null, options1,
+                                options1[0]);
+                    }
+                }
             } else {
-                // 无法使用,不可升级
                 Object[] options = {"重新选择"};
-                JOptionPane.showOptionDialog(null, " 当前房屋不可升级.", "卡片使用阶段.",
-                        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        null, options, options[0]);
-            }
-        } else {
-            // 无法使用.
-            Object[] options = {"重新选择"};
-            JOptionPane.showOptionDialog(null, " 当前房屋不能使用该卡片.", "卡片使用阶段.",
-                    JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                    options, options[0]);
-        }
-    }
-
-    /**
-     * 退出商店
-     */
-    public void exitShop() {
-        new Thread(new MyThread(run, 1)).start();
-    }
-
-    /**
-     * 商店里买卡片操作
-     */
-    public void buyCard(Shop_ shop) {
-        int chooseCard = this.panel.getShop().getChooseCard();
-        if (chooseCard >= 0
-                && this.panel.getShop().getCard().get(chooseCard) != null) {
-            // 购买卡片 如果购买成功
-            if (this.buyCard(shop, chooseCard)) {
-                // ＵＩ消去卡片
-                this.panel.getShop().getCard().get(chooseCard).setEnabled(false);
-                // 初始化已选卡片
-                this.panel.getShop().setChooseCard(-1);
+                JOptionPane.showOptionDialog(null, " 当前房屋不可使用\"换屋卡\"", "卡片使用阶段.",
+                        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                        options, options[0]);
             }
         }
-    }
 
-    /**
-     * 购买卡片
-     */
-    public boolean buyCard(Shop_ shop, int p) {
-        if (this.panel.getShop().getCard().get(p) != null) {
-            if (this.run.getNowPlayer().getCards().size() >= PlayerModel.MAX_CAN_HOLD_CARDS) {
-                JOptionPane.showMessageDialog(null, "您最大可持有:"
-                        + PlayerModel.MAX_CAN_HOLD_CARDS + "张卡片,目前已经不能再购买了!");
-                return false;
+        /**
+         * 使用均贫卡
+         */
+        private void useAveragerPoorCard (Card card){
+            Object[] options = {"确认使用", "重新选择"};
+            int response = JOptionPane.showOptionDialog(null,
+                    "确认使用\"均贫卡\"与对手平分现金?", "卡片使用阶段.", JOptionPane.YES_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+            if (response == 0) {
+                // 使用
+                int money = (int) (card.getOwner().getCash() + card.getOwner()
+                        .getOtherPlayer().getCash()) / 2;
+                card.getOwner().setCash(money);
+                card.getOwner().getOtherPlayer().setCash(money);
+                // 增加文本提示
+                this.textTip.showTextTip(card.getOwner(), card.getOwner().getName()
+                        + " 使用了 \"均贫卡\"，与对手平分了现金,现在双方现金数为:" + money + " 金币. ", 2);
+
+                // 　减去卡片
+                card.getOwner().getCards().remove(card);
             }
-            if (this.run.getNowPlayer().getNx() < shop.getCards().get(p)
-                    .getPrice()) {
-                JOptionPane.showMessageDialog(null, "当前卡片需要:"
-                        + shop.getCards().get(p).getPrice() + "点卷,您的点卷不足.");
-                return false;
-            }
-            // 设置卡片拥有者
-            shop.getCards().get(p).setOwner(this.run.getNowPlayer());
-            // 向玩家卡片库中添加卡片
-            this.run.getNowPlayer().getCards().add(shop.getCards().get(p));
-            // 减去对应点卷
-            this.run.getNowPlayer().setNx(
-                    this.run.getNowPlayer().getNx()
-                            - shop.getCards().get(p).getPrice());
         }
-        return true;
-    }
 
-    /**
-     * 游戏结束~
-     *
-     * @param winer
-     */
-    public void gameOver() {
-        this.run.setNowPlayerState(GameRunning.GAME_STOP);
-        this.panel.getBackgroundUI().moveToFront();
-        this.panel.getRunning().moveToFront();
-        this.panel.getPlayerInfo().moveToFront();
-        this.panel.getEffect().moveToFront();
-        this.music.gameOver();
-        this.effect.showImg("timeover2");
+        /**
+         * 使用加盖卡
+         */
 
+        private void useAddLevelCard (Card card){
+            Building building = this.building.getBuilding(
+                    card.getOwner().getY() / 60, card.getOwner().getX() / 60);
+            if (building.getOwner() != null
+                    && building.getOwner().equals(card.getOwner())) {// 是自己的房屋
+                if (building.canUpLevel()) { // 可升级
+                    // 升级
+                    building.setLevel(building.getLevel() + 1);
+                    // 增加文本提示
+                    this.textTip.showTextTip(card.getOwner(), card.getOwner()
+                            .getName() + " 使用了 \"加盖卡\"，将房屋等级提升一级. ", 2);
+                    // 　减去卡片
+                    card.getOwner().getCards().remove(card);
+                } else {
+                    // 无法使用,不可升级
+                    Object[] options = {"重新选择"};
+                    JOptionPane.showOptionDialog(null, " 当前房屋不可升级.", "卡片使用阶段.",
+                            JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                }
+            } else {
+                // 无法使用.
+                Object[] options = {"重新选择"};
+                JOptionPane.showOptionDialog(null, " 当前房屋不能使用该卡片.", "卡片使用阶段.",
+                        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                        options, options[0]);
+            }
+        }
+
+        /**
+         * 退出商店
+         */
+        public void exitShop () {
+            new Thread(new MyThread(run, 1)).start();
+        }
+
+        /**
+         * 商店里买卡片操作
+         */
+        public void buyCard (Shop_ shop){
+            int chooseCard = this.panel.getShop().getChooseCard();
+            if (chooseCard >= 0
+                    && this.panel.getShop().getCard().get(chooseCard) != null) {
+                // 购买卡片 如果购买成功
+                if (this.buyCard(shop, chooseCard)) {
+                    // ＵＩ消去卡片
+                    this.panel.getShop().getCard().get(chooseCard).setEnabled(false);
+                    // 初始化已选卡片
+                    this.panel.getShop().setChooseCard(-1);
+                }
+            }
+        }
+
+        /**
+         * 购买卡片
+         */
+        public boolean buyCard (Shop_ shop,int p){
+            if (this.panel.getShop().getCard().get(p) != null) {
+                if (this.run.getNowPlayer().getCards().size() >= PlayerModel.MAX_CAN_HOLD_CARDS) {
+                    JOptionPane.showMessageDialog(null, "您最大可持有:"
+                            + PlayerModel.MAX_CAN_HOLD_CARDS + "张卡片,目前已经不能再购买了!");
+                    return false;
+                }
+                if (this.run.getNowPlayer().getNx() < shop.getCards().get(p)
+                        .getPrice()) {
+                    JOptionPane.showMessageDialog(null, "当前卡片需要:"
+                            + shop.getCards().get(p).getPrice() + "点卷,您的点卷不足.");
+                    return false;
+                }
+                // 设置卡片拥有者
+                shop.getCards().get(p).setOwner(this.run.getNowPlayer());
+                // 向玩家卡片库中添加卡片
+                this.run.getNowPlayer().getCards().add(shop.getCards().get(p));
+                // 减去对应点卷
+                this.run.getNowPlayer().setNx(
+                        this.run.getNowPlayer().getNx()
+                                - shop.getCards().get(p).getPrice());
+            }
+            return true;
+        }
+
+        /**
+         * 游戏结束~
+         *
+         * @param winer
+         */
+        public void gameOver () {
+            this.run.setNowPlayerState(GameRunning.GAME_STOP);
+            this.panel.getBackgroundUI().moveToFront();
+            this.panel.getRunning().moveToFront();
+            this.panel.getPlayerInfo().moveToFront();
+            this.panel.getEffect().moveToFront();
+            this.music.gameOver();
+            this.effect.showImg("timeover2");
+
+        }
     }
-}
