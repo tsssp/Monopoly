@@ -69,6 +69,7 @@ public class PlayersPanel extends Layer {
 		posX = posX + flag*d;
 		if( cash == 0){
 			int num = 0;
+			posX = posX + d;
 			g.drawImage(numberIMG[num], posX,posY,posX + numberIMG[num].getWidth(null)-10,posY + numberIMG[num].getHeight(null)-10,0,0,numberIMG[num].getWidth(null),numberIMG[num].getHeight(null),null);
 		}
 
@@ -99,16 +100,26 @@ public class PlayersPanel extends Layer {
 		// –≈œ¢÷ÿªÊ
 		FontMetrics fm = g.getFontMetrics();
 		//player.getIMG("dollar");
-		Image dollar = new ImageIcon("images/logo/dollar.png").getImage();
+		Image dollar = new ImageIcon("images/logo/dollar1.png").getImage();
 		g.drawImage(dollar,x,y,x+dollar.getWidth(null)-20,y+dollar.getHeight(null)-20,0,0,dollar.getWidth(null),dollar.getHeight(null),null);
 		int cash = player.getCash();
 		draw_number(cash,x+5,y+10,g);
 		x = x + 115;
-		Image Nximage = new ImageIcon("images/logo/savingPot.png").getImage();
-		g.drawImage(Nximage,x,y,x+Nximage.getWidth(null)-20,y+Nximage.getHeight(null)-20,0,0,Nximage.getWidth(null),Nximage.getHeight(null),null);
+		Image Nximage = new ImageIcon("images/logo/dollar2.png").getImage();
+		g.drawImage(Nximage,x-60,y-30,x+Nximage.getWidth(null)-20,y+Nximage.getHeight(null)-20,0,0,Nximage.getWidth(null),Nximage.getHeight(null),null);
 		int Nx = player.getNx();
 		draw_number(Nx,x+23,y+10,g);
-
+		Image House = new ImageIcon("images/logo/house.png").getImage();
+		x = x - 113;
+		y = y + 40;
+		g.drawImage(House,x,y,x + House.getWidth(null) - 23,y+House.getHeight(null)-23,0,0,House.getWidth(null),House.getHeight(null),null);
+		int house_num = player.getBuildings().size();
+		draw_number(house_num,x+20,y+10,g);
+		Image Card = new ImageIcon("images/logo/card.png").getImage();
+		x = x + 110;
+		g.drawImage(Card,x,y,x + Card.getWidth(null)-20,y+Card.getHeight(null)-20,0,0,Card.getWidth(null),Card.getHeight(null),null);
+		int card_num = player.getCards().size();
+		draw_number(card_num,x+23,y+10,g);
 		//Image temp = new ImageIcon("images/logo/0.png").getImage();
 		//g.drawImage(numberIMG[num], x,y,x + numberIMG[num].getWidth(null),y + numberIMG[num].getHeight(null),0,0,numberIMG[num].getWidth(null),numberIMG[num].getHeight(null),null);
 		//g.drawImage(temp, x,y,x + temp.getWidth(null),y + temp.getHeight(null),0,0,temp.getWidth(null),temp.getHeight(null),null);

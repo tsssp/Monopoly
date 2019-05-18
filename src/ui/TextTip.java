@@ -47,7 +47,6 @@ public class TextTip extends Layer {
 	@Override
 	public void paint(Graphics g) {
 		// 绘制信息面板
-		g.setFont(new Font("宋体",Font.BOLD,12));
 		paintTextTip(g, this);
 	}
 

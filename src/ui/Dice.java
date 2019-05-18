@@ -3,8 +3,6 @@ package ui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Font;
-import java.awt.FontFormatException;
 
 import control.Control;
 
@@ -68,7 +66,6 @@ public class Dice extends Layer {
 			this.paintRunning(g, i, j, dice.getNowTick() % 4 == 0);
 		}
 		g.setColor(Color.black);
-		g.setFont(new Font("ËÎÌו",Font.BOLD,12));
 		g.drawString(dice.getRunning().getNowPlayer().getName() + ":", i + 120,
 				j + 45);
 	}
