@@ -69,7 +69,7 @@ public class LandModel extends Tick implements Port {
 	public final static int WESTGATE = 6;
 	public final static int TOWER = 12;
 	public final static int LIBRARY = 13;
-	public final static int EAST_GATE = 1;
+	public final static int EAST_GATE = ORIGIN;
 	public final static int WUMEI = 1;
 	public final static int BAIJIANG = 1;
 	public final static int NONGYUAN = 1;
@@ -109,7 +109,7 @@ public class LandModel extends Tick implements Port {
 			{ PIONT_50, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET,NULL_SET, NULL_SET, NULL_SET, NULL_SET, PIONT_50 },
 			{ PIONT_30, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET,NULL_SET, NULL_SET, NULL_SET, NULL_SET, PIONT_10 },
 			{ PIONT_50, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET,NULL_SET, NULL_SET, NULL_SET, NULL_SET, PIONT_50 },
-			{ ORIGIN, NEWS, SPACE, NEWS, SPACE, NEWS, SPACE, NEWS,HOSPITAL, NEWS, SPACE, SHOP, SPACE }};
+			{ SPACE, NEWS, SPACE, NEWS, SPACE, NEWS, SPACE, NEWS,HOSPITAL, NEWS, SPACE, SHOP, SPACE }};
 
 	protected int[][] land2 = {
 			// 模仿大富翁其中一个地图设置
@@ -143,7 +143,7 @@ public class LandModel extends Tick implements Port {
 			{ NEWS, PIONT_30, SPACE, SPACE, SHOP, PIONT_10, SPACE, SPACE,
 					SPACE, SPACE, HOSPITAL, PIONT_50, SPACE } };
 
-	protected int[][] land4 =
+	public int[][] land4 =
 			{{NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, PIONT_30, SPACE, SPACE, SPACE, NULL_SET, NULL_SET},
 					{NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, SPACE, SPACE, PIONT_30, SPACE, PIONT_90, SPACE, NEWS, NULL_SET, NULL_SET, SPACE, NULL_SET, NULL_SET},
 					{PIONT_60, SPACE, SPACE, NULL_SET, NULL_SET, NULL_SET, SPACE, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, SPACE, NULL_SET, NULL_SET},
@@ -181,14 +181,14 @@ public class LandModel extends Tick implements Port {
 	 * 开始游戏设置
 	 */
 	public void startGameInit() {
-		land = land4;
-//        if (GameRunning.MAP == 1) {
-//            land = land1;
-//        } else if (GameRunning.MAP == 2) {
-//            land = land2;
-//        } else if (GameRunning.MAP == 3) {
-//            land = land3;
-//        }
+
+        if (GameRunning.MAP == 1) {
+            land = land1;
+        } else if (GameRunning.MAP == 2) {
+            land = land2;
+        } else if (GameRunning.MAP == 3) {
+            land = land3;
+        }
 	}
 
 	@Override
