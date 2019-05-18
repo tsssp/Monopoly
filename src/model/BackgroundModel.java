@@ -42,7 +42,7 @@ public class BackgroundModel extends Tick implements Port{
 		this.bg = new ImageIcon("images/background/bg_0"+1+".jpg").getImage();
 	}
 	@Override
-	public void updata(long tick) {
+	public void update(long tick) {
 		this.nowTick = tick;
 	}
 }

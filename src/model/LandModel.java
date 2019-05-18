@@ -185,13 +185,17 @@ public class LandModel extends Tick implements Port {
             land = land2;
         } else if (GameRunning.MAP == 3) {
             land = land3;
+        } else if (GameRunning.MAP == 4) {
+            land = land4;
+        } else {
+            throw new RuntimeException("land model binding error");
         }
-	}
+    }
 
-	@Override
-	public void updata(long tick) {
-		this.nowTick = tick;
+    @Override
+    public void update(long tick) {
+        this.nowTick = tick;
 
-	}
+    }
 
 }

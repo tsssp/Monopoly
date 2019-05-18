@@ -124,7 +124,7 @@ public class BuildingsModel extends Tick implements Port{
 	}
 
 	@Override
-	public void updata(long tick) {
+	public void update(long tick) {
 		this.nowTick = tick;
 		
 	}
