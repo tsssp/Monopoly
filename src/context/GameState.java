@@ -2,15 +2,15 @@ package context;
 
 /**
  * 
- * ÓÎÏ·³£Á¿
+ * ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
  * 
  * 
- * @author MOVELIGHTS
+ *
  *
  */
 public class GameState {
 
-	// Í£ÁôÔÚ½¨Öþ·µ»Ø×´Ì¬
+	// Í£ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	
 	public  final static int HOSPITAL_EVENT = 1;
 
@@ -26,15 +26,22 @@ public class GameState {
 	
 	public  final static int POINT_EVENT = 7;
 	
-	public  final static int PRISON_EVENT = 8;
+	public  final static int SECURITYDEPARTMENT_EVENT = 8;
 	
 	public  final static int SHOP_EVENT = 9;
-	
-	// Â·¹ý½¨Öþ·µ»Ø×´Ì¬
+
+	public  final static int TOWER_EVENT = 10;
+
+	public  final static int LIBRARY_EVENT = 11;
+
+	public  final static int WESTGATE_EVENT = 12;
+
+	public  final static int PRISON_EVENT= 13;
+	// Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	
 	public final static int ORIGIN_PASS_EVENT = 1;
 	
-	// Ê¹ÓÃ¿¨Æ¬·µ»Ø×´Ì¬
+	// Ê¹ï¿½Ã¿ï¿½Æ¬ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	
 	public  final static int CARD_ADDLEVEL = 1;
 	
@@ -60,7 +67,7 @@ public class GameState {
 	
 	public  final static int CARD_STOP = 12;
 	
-	// ¿¨Æ¬×÷ÓÃÐ§¹û·µ»Ø×´Ì¬
+	// ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	
 	public final static int CARD_BUFF_STOP = 1;
 	

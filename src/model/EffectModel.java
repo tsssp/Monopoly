@@ -11,7 +11,7 @@ import control.Control;
  * 
  * 事件信息
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class EffectModel extends Tick implements Port {
@@ -214,7 +214,7 @@ public class EffectModel extends Tick implements Port {
 	}
 
 	@Override
-	public void updata(long tick) {
+	public void update(long tick) {
 		this.nowTick = tick;
 	}
 

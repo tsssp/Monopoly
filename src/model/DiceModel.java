@@ -20,7 +20,7 @@ import util.FileUtil;
  * 骰子
  * 
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class DiceModel extends Tick implements Port {
@@ -153,7 +153,7 @@ public class DiceModel extends Tick implements Port {
 
 
 	@Override
-	public void updata(long tick) {
+	public void update(long tick) {
 		this.nowTick = tick;
 		// 确认按钮状态
 		this.checkButton();

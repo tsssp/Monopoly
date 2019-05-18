@@ -12,7 +12,7 @@ import control.Control;
  * 
  * 
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Lottery extends Building {

@@ -26,7 +26,7 @@ import model.TextTipModel;
  * 
  * 信息提示框
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class TextTip extends Layer {
@@ -63,6 +63,7 @@ public class TextTip extends Layer {
 			g.drawImage(bg, pointWindow.x, pointWindow.y, pointWindow.x + bg.getWidth(null),
 					pointWindow.y + bg.getHeight(null), 0, 0, bg.getWidth(null),
 					bg.getHeight(null), null);
+			g.setFont(new Font("宋体", Font.BOLD, 12));
 			// 绘制文字
 			drawSting(g);
 		}

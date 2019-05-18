@@ -12,7 +12,7 @@ import ui.JPanelGame;
  * 
  * 游戏运转处理
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class GameRunning {
@@ -73,7 +73,7 @@ public class GameRunning {
 	 * 当前地图代码
 	 * 
 	 */
-	public static int MAP = 1;
+	public static int MAP = 3;
 	/**
 	 * 
 	 * 游戏上限天数 - 1为无上限
@@ -85,14 +85,14 @@ public class GameRunning {
 	 * 游戏金钱上线（即胜利条件）-1为无上限
 	 * 
 	 */
-	public static int MONEY_MAX = -1;
+	public static int MONEY_MAX = 80000;
 
 	/**
 	 * 
 	 * 初始化玩家初始金钱
 	 * 
 	 */
-	public static int PLAYER_CASH = 1000;
+	public static int PLAYER_CASH = 20000;
 
 	private Control control;
 
@@ -164,13 +164,23 @@ public class GameRunning {
 				: this.players.get(0);
 	}
 
+	public void stayPlayer(){
+		if (this.nowPlayer.equals(this.players.get(0))) {
+			this.nowPlayer = this.players.get(1);
+		} else {
+			this.nowPlayer = this.players.get(0);
+			// 结束后游戏天数增加
+			// 结束后游戏天数增加
+			day++;
+		}
+	}
 	/**
 	 * 换人操作
 	 */
 	private void nextPlayer() {
 		// 减少时间
-		if (this.nowPlayer.getInPrison() > 0) {
-			this.nowPlayer.setInPrison(this.nowPlayer.getInPrison() - 1);
+		if (this.nowPlayer.getInSecurityDepartment() > 0) {
+			this.nowPlayer.setInSecurityDepartment(this.nowPlayer.getInSecurityDepartment() - 1);
 		}
 		if (this.nowPlayer.getInHospital() > 0) {
 			this.nowPlayer.setInHospital(this.nowPlayer.getInHospital() - 1);

@@ -3,21 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.buildings.Building;
-import model.buildings.Hospital;
-import model.buildings.House;
-import model.buildings.Lottery;
-import model.buildings.News;
-import model.buildings.Origin;
-import model.buildings.Park;
-import model.buildings.Point;
-import model.buildings.Prison;
-import model.buildings.Shop_;
+import model.buildings.*;
 
 /**
  * 全局房屋信息
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class BuildingsModel extends Tick implements Port{
@@ -47,6 +38,18 @@ public class BuildingsModel extends Tick implements Port{
 		for (int i = 0; i < temp.length; i++) {
 			for (int j = 0; j < temp[i].length; j++) {
 				switch (temp[i][j]) {
+				case LandModel.WESTGATE:
+					Building tmpBuidling = new WestGate(i, j);
+					// 设置西门的属性为可以购买的
+					tmpBuidling.setPurchasability(true);
+					buildings.add(tmpBuidling);
+					break;
+				case LandModel.LIBRARY:
+					buildings.add(new Library(i, j));
+					break;
+				case LandModel.TOWER:
+					buildings.add(new Tower(i, j));
+					break;
 				case LandModel.SPACE:
 					Building tempBuidling = new House(i, j);
 					// 设置空地的属性为可以购买的
@@ -59,14 +62,12 @@ public class BuildingsModel extends Tick implements Port{
 					LandModel.hospital = new java.awt.Point(j * 60,i * 60);
 //					System.out.println(LandModel.hospital );
 					break;
-				case LandModel.LOTTERY:
-					buildings.add(new Lottery(i, j));
-					break;
 				case LandModel.NEWS:
 					buildings.add(new News(i, j));
 					break;
 				case LandModel.ORIGIN:
 					buildings.add(new Origin(i, j));
+					LandModel.Origin = new java.awt.Point(j * 60,i * 60);
 					break;
 				case LandModel.PARK:
 					buildings.add(new Park(i, j));
@@ -83,10 +84,10 @@ public class BuildingsModel extends Tick implements Port{
 				case LandModel.SHOP:
 					buildings.add(new Shop_(i, j));
 					break;
-				case LandModel.PRISON:// 监狱
-					buildings.add(new Prison(i, j));
-					//设置全图监狱点
-					LandModel.prison = new java.awt.Point(j * 60, i * 60);
+				case LandModel.SECURITYDEPARTMENT:// 保卫部
+					buildings.add(new SecurityDepartment(i, j));
+					//设置全图保卫部点
+					LandModel.SecurityDepartment = new java.awt.Point(j * 60, i * 60);
 //					System.out.println(LandModel.prison );
 					break;
 				default:
@@ -129,7 +130,7 @@ public class BuildingsModel extends Tick implements Port{
 	}
 
 	@Override
-	public void updata(long tick) {
+	public void update(long tick) {
 		this.nowTick = tick;
 		
 	}

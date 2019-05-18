@@ -11,7 +11,7 @@ import control.Control;
  * 
  * 文字提示更新
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class TextTipModel extends Tick implements Port{
@@ -40,7 +40,7 @@ public class TextTipModel extends Tick implements Port{
 	public void startGameInit (){}
 
 	@Override
-	public void updata(long tick) {
+	public void update(long tick) {
 		this.nowTick = tick;
 	}
 

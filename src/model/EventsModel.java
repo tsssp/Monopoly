@@ -15,10 +15,10 @@ import control.Control;
  * 
  * 事件信息
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
-public class EventsModel extends Tick implements Port {
+public class  EventsModel extends Tick implements Port {
 
 	/**
 	 * 显示图片源
@@ -67,7 +67,7 @@ public class EventsModel extends Tick implements Port {
 	}
 
 	@Override
-	public void updata(long tick) {
+	public void update(long tick) {
 		this.nowTick = tick;
 	}
 

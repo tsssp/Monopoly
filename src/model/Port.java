@@ -6,7 +6,7 @@ public interface Port {
 	 * 模型更新
 	 * 
 	 */
-	public abstract void updata(long tick);
+	public abstract void update(long tick);
 	
 	/**
 	 * 

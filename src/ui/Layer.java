@@ -12,7 +12,7 @@ import util.FileUtil;
 /**
  * ªÊ÷∆≤„ ≥ÈœÛ¿‡
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public abstract class Layer extends JPanel{
@@ -35,7 +35,9 @@ public abstract class Layer extends JPanel{
 
 	protected static final int PADDING = 5;
 	protected static final int SIZE = 2;
-	protected static Image WINDOW_IMG = new ImageIcon("images/window/window.png").getImage();
+	//protected static Image WINDOW_IMG = new ImageIcon("images/window/transparent.png").getImage();
+	protected static Image WINDOW_IMG = new ImageIcon("imnages/window/sa.png").getImage();
+
 	protected static int WINDOW_W = WINDOW_IMG.getWidth(null);
 	protected static int WINDOW_H = WINDOW_IMG.getHeight(null);
 

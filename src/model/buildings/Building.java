@@ -11,7 +11,7 @@ import control.Control;
  * 
  * ·¿Îİ³éÏóÀà
  * 
- * @author MOVELIGHTS
+ *
  * 
  */
 public class Building{
