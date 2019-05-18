@@ -281,7 +281,7 @@ public class PlayerModel extends Tick implements Port {
 	}
 
 	@Override
-	public void updata(long tick) {
+	public void update(long tick) {
 		this.nowTick = tick;
 		// ÒÆ¶¯Íæ¼Ò
 		if (this.startTick < this.nowTick && this.nextTick >= this.nowTick) {

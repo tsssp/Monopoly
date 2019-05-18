@@ -1,11 +1,7 @@
 package control;
 
-import java.applet.AudioClip;
-import java.net.URLClassLoader;
-import java.security.KeyPair;
 import java.util.*;
 
-import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 
 import model.BackgroundModel;
@@ -25,14 +21,12 @@ import model.buildings.Origin;
 import model.buildings.Park;
 import model.buildings.Point;
 import model.buildings.Tower;
-import model.buildings.WestGate;
 import model.buildings.SecurityDepartment;
 import model.buildings.Shop_;
 import model.card.Card;
 import model.card.TortoiseCard;
 import music.Music;
 import ui.JPanelGame;
-import util.FileUtil;
 import util.MyThread;
 import context.GameState;
 
@@ -193,7 +187,7 @@ public class Control {
                 tick++;
                 // 更新各对象
                 for (Port temp : models) {
-                    temp.updata(tick);
+                    temp.update(tick);
                 }
                 // UI更新
                 panel.repaint();
