@@ -72,12 +72,6 @@ public class BuildingsModel extends Tick implements Port{
 				case LandModel.PARK:
 					buildings.add(new Park(i, j));
 					break;
-				case LandModel.PIONT_10:
-					buildings.add(new Point(i, j, 10));
-					break;
-				case LandModel.PIONT_30:
-					buildings.add(new Point(i, j, 30));
-					break;
 				case LandModel.PIONT_50:
 					buildings.add(new Point(i, j, 50));
 					break;
