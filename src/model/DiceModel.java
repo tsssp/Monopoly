@@ -153,7 +153,7 @@ public class DiceModel extends Tick implements Port {
 
 
 	@Override
-	public void updata(long tick) {
+	public void update(long tick) {
 		this.nowTick = tick;
 		// ȷ�ϰ�ť״̬
 		this.checkButton();
