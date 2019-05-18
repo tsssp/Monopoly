@@ -2,10 +2,8 @@ package control;
 
 import java.applet.AudioClip;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.security.KeyPair;
+import java.util.*;
 
 import javax.swing.JApplet;
 import javax.swing.JOptionPane;
@@ -37,6 +35,9 @@ import ui.JPanelGame;
 import util.FileUtil;
 import util.MyThread;
 import context.GameState;
+
+import static model.LandModel.NULL_SET;
+import static model.LandModel.ORIGIN;
 
 /**
  * 游戏总控制器
@@ -70,7 +71,7 @@ public class Control {
     private EventsModel events = null;
     private EffectModel effect = null;
     private Music music = null;
-
+    private int[][] move_map = null;
     /**
      * 游戏计时器
      */
@@ -87,6 +88,57 @@ public class Control {
 
     public void setPanel(JPanelGame panel) {
         this.panel = panel;
+    }
+
+    private void generate_move_map() {
+        int[][] map = this.land.land4;
+        int n = map.length;
+        int m = map[0].length;
+        int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int sx = -1;
+        int sy = -1;
+
+        this.move_map = new int[n][m];
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                if (map[i][j] == ORIGIN) {
+                    move_map[i][j] = 1;
+                    move_map[i][j - 1] = -1;
+                    sx = i;
+                    sy = j;
+                } else
+                    move_map[i][j] = 0;
+            }
+        }
+
+        int[][] bfs = new int[n * m][2];
+        bfs[1][0] = sx;
+        bfs[1][1] = sy;
+        int ib = 2;  // bfs index, also used as grid id
+        for (int i = 1; i < ib; ++i) {
+            for (int k = 0; k < 4; ++k) {
+                int cx = bfs[i][0];
+                int cy = bfs[i][1];
+                int tx = cx + dir[k][0];
+                int ty = cy + dir[k][1];
+                if (tx < 0 || tx >= n || ty < 0 || ty >= m
+                        || map[tx][ty] == NULL_SET || move_map[tx][ty] != 0)
+                    continue;
+                bfs[ib][0] = tx;
+                bfs[ib][1] = ty;
+                move_map[tx][ty] = ib;
+                ib++;
+            }
+        }
+
+        // test out
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                System.out.printf("%3d",move_map[i][j]);
+            }
+            System.out.println();
+        }
+
     }
 
     /**
@@ -111,6 +163,8 @@ public class Control {
         // 创建一个新的建筑模型
         this.building = new BuildingsModel(land);
         this.models.add(building);
+        // create map for moving strategy
+        this.generate_move_map();
         // 创建一个新的玩家数组
         this.players = new ArrayList<PlayerModel>();
         this.players.add(new PlayerModel(1, this));
@@ -250,13 +304,14 @@ public class Control {
         // 人物运动
         for (int i = 0; i < (60 / this.run.getNowPlayer().getLastTime()); i++) {
             // 移动玩家
-            if (GameRunning.MAP == 1) {
-                this.move01();
-            } else if (GameRunning.MAP == 2) {
-                this.move02();
-            } else if (GameRunning.MAP == 3) {
-                this.move03();
-            }
+            this.move04();
+//            if (GameRunning.MAP == 1) {
+//                this.move01();
+//            } else if (GameRunning.MAP == 2) {
+//                this.move02();
+//            } else if (GameRunning.MAP == 3) {
+//                this.move03();
+//            }
         }
     }
 
@@ -395,6 +450,27 @@ public class Control {
         PlayerModel p = this.run.getNowPlayer();
         // 单位移动像素
         int movePixel = 1;
+        if (p.getX() < 12 * 60 && p.getY() == 0) {
+            p.setX(p.getX() + movePixel);
+        } else if (p.getX() == 12 * 60 && p.getY() < 7 * 60) {
+            p.setY(p.getY() + movePixel);
+        } else if (p.getX() > 0 && p.getY() == 7 * 60) {
+            p.setX(p.getX() - movePixel);
+        } else if (p.getX() == 0 && p.getY() > 0) {
+            p.setY(p.getY() - movePixel);
+        }
+    }
+
+    private void move04() {
+
+        PlayerModel p = this.run.getNowPlayer();
+        // 单位移动像素
+        int movePixel = 1;
+        int grid_size = 60;
+
+
+        // find origin
+
         if (p.getX() < 12 * 60 && p.getY() == 0) {
             p.setX(p.getX() + movePixel);
         } else if (p.getX() == 12 * 60 && p.getY() < 7 * 60) {

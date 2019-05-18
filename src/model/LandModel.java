@@ -69,7 +69,7 @@ public class LandModel extends Tick implements Port {
 	public final static int WESTGATE = 6;
 	public final static int TOWER = 12;
 	public final static int LIBRARY = 13;
-	public final static int EAST_GATE = 1;
+	public final static int EAST_GATE = ORIGIN;
 	public final static int WUMEI = 1;
 	public final static int BAIJIANG = 1;
 	public final static int NONGYUAN = 1;
@@ -143,7 +143,7 @@ public class LandModel extends Tick implements Port {
 			{ NEWS, PIONT_30, SPACE, SPACE, SHOP, PIONT_10, SPACE, SPACE,
 					SPACE, SPACE, HOSPITAL, PIONT_50, SPACE } };
 
-	protected int[][] land4 =
+	public int[][] land4 =
 			{{NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, PIONT_30, SPACE, SPACE, SPACE, NULL_SET, NULL_SET},
 					{NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, SPACE, SPACE, PIONT_30, SPACE, PIONT_90, SPACE, NEWS, NULL_SET, NULL_SET, SPACE, NULL_SET, NULL_SET},
 					{PIONT_60, SPACE, SPACE, NULL_SET, NULL_SET, NULL_SET, SPACE, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, NULL_SET, SPACE, NULL_SET, NULL_SET},
