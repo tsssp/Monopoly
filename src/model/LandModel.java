@@ -181,14 +181,14 @@ public class LandModel extends Tick implements Port {
 	 * 开始游戏设置
 	 */
 	public void startGameInit() {
-		land = land4;
-//        if (GameRunning.MAP == 1) {
-//            land = land1;
-//        } else if (GameRunning.MAP == 2) {
-//            land = land2;
-//        } else if (GameRunning.MAP == 3) {
-//            land = land3;
-//        }
+
+        if (GameRunning.MAP == 1) {
+            land = land1;
+        } else if (GameRunning.MAP == 2) {
+            land = land2;
+        } else if (GameRunning.MAP == 3) {
+            land = land3;
+        }
 	}
 
 	@Override
